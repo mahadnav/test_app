@@ -22,6 +22,15 @@ if uploaded_file is not None:
         df = ds.to_dataframe().reset_index()
     
     if df is not None:
+        # Rename PM2.5 column if it has variations
+        for col in df.columns:
+            if "PM2.5" in col:
+                df.rename(columns={col: "PM2.5"}, inplace=True)
+        
+        # Ensure datetime is properly formatted
+        if 'Datetime' in df.columns:
+            df.rename(columns={'Datetime': 'datetime'}, inplace=True)
+        
         st.write("### Data Preview")
         st.dataframe(df.head())
         
@@ -29,15 +38,26 @@ if uploaded_file is not None:
         st.write("### Summary Statistics")
         st.write(df.describe())
         
+        # Filter by Name and City if columns exist
+        if 'Name' in df.columns:
+            selected_name = st.selectbox("Select Name", options=["All"] + list(df['Name'].unique()))
+            if selected_name != "All":
+                df = df[df['Name'] == selected_name]
+        
+        if 'City' in df.columns:
+            selected_city = st.selectbox("Select City", options=["All"] + list(df['City'].unique()))
+            if selected_city != "All":
+                df = df[df['City'] == selected_city]
+        
         # Filter options
-        if 'Datetime' in df.columns:
-            df['Datetime'] = pd.to_datetime(df['Datetime'])
-            start_date, end_date = st.date_input("Select Date Range", [df['Datetime'].min(), df['Datetime'].max()])
-            df = df[(df['Datetime'] >= pd.Timestamp(start_date)) & (df['Datetime'] <= pd.Timestamp(end_date))]
+        if 'datetime' in df.columns:
+            df['datetime'] = pd.to_datetime(df['datetime'])
+            start_date, end_date = st.date_input("Select Date Range", [df['datetime'].min(), df['datetime'].max()])
+            df = df[(df['datetime'] >= pd.Timestamp(start_date)) & (df['datetime'] <= pd.Timestamp(end_date))]
         
         # Time-Series Plot
-        if 'Datetime' in df.columns and 'PM2.5 (ug/m3)' in df.columns:
-            fig = px.line(df, x='Datetime', y='PM2.5 (ug/m3)', title='PM2.5 Levels Over Time')
+        if 'datetime' in df.columns and 'PM2.5' in df.columns:
+            fig = px.line(df, x='datetime', y='PM2.5', title='PM2.5 Levels Over Time')
             st.plotly_chart(fig)
         
         # Geospatial Visualization (if lat/lon are present)
