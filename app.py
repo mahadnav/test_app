@@ -28,8 +28,8 @@ if uploaded_file is not None:
                 df.rename(columns={col: "PM2.5"}, inplace=True)
         
         # Ensure datetime is properly formatted
-        if 'Datetime' in df.columns:
-            df.rename(columns={'Datetime': 'datetime'}, inplace=True)
+        if 'Datetime (UTC+5)' in df.columns:
+            df.rename(columns={'Datetime (UTC+5)': 'datetime'}, inplace=True)
         
         st.write("### Data Preview")
         st.dataframe(df.head())
