@@ -30,14 +30,14 @@ if uploaded_file is not None:
         st.write(df.describe())
         
         # Filter options
-        if 'datetime' in df.columns:
-            df['datetime'] = pd.to_datetime(df['datetime'])
-            start_date, end_date = st.date_input("Select Date Range", [df['datetime'].min(), df['datetime'].max()])
-            df = df[(df['datetime'] >= pd.Timestamp(start_date)) & (df['datetime'] <= pd.Timestamp(end_date))]
+        if 'Datetime' in df.columns:
+            df['Datetime'] = pd.to_datetime(df['Datetime'])
+            start_date, end_date = st.date_input("Select Date Range", [df['Datetime'].min(), df['Datetime'].max()])
+            df = df[(df['Datetime'] >= pd.Timestamp(start_date)) & (df['Datetime'] <= pd.Timestamp(end_date))]
         
         # Time-Series Plot
-        if 'datetime' in df.columns and 'PM2.5' in df.columns:
-            fig = px.line(df, x='datetime', y='PM2.5', title='PM2.5 Levels Over Time')
+        if 'Datetime' in df.columns and 'PM2.5 (ug/m3)' in df.columns:
+            fig = px.line(df, x='Datetime', y='PM2.5 (ug/m3)', title='PM2.5 Levels Over Time')
             st.plotly_chart(fig)
         
         # Geospatial Visualization (if lat/lon are present)
