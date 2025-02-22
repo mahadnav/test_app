@@ -5,3 +5,4 @@ folium
 xarray
 streamlit-folium
 matplotlib
+numpy

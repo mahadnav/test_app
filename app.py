@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 import plotly.express as px
 import folium
 import xarray as xr
@@ -77,10 +78,19 @@ if uploaded_file is not None:
         df_grouped = df.groupby(['year', 'day_of_year'])['PM2.5'].mean().reset_index()
         pm2_5_matrix = df_grouped.pivot(index='year', columns='day_of_year', values='PM2.5')
         
-        fig, ax = plt.subplots(figsize=(20, 5))
-        ax.imshow(pm2_5_matrix, aspect='auto', cmap='coolwarm', interpolation='nearest', vmax=250)
-        ax.set_xlabel("Day of Year")
-        ax.set_ylabel("Year")
+        fig, ax = plt.subplots(figsize=(20, 10))
+        im = ax.imshow(pm2_5_matrix, aspect='auto', cmap='coolwarm', interpolation='nearest', vmax=250)
+        
+        # Customizing the appearance
+        ax.set_yticks(np.arange(len(pm2_5_matrix.index)))
+        ax.set_yticklabels(pm2_5_matrix.index, color='white')
+        ax.set_xticks([])  # Remove xticks
+        ax.set_title("PM2.5 Stripes", color='white')
+        ax.set_xlabel("")
+        ax.set_ylabel("Year", color='white')
+        fig.patch.set_alpha(0)  # Transparent background
+        ax.set_facecolor("none")
+        
         st.pyplot(fig)
     
         # # Geospatial Visualization (if lat/lon are present)
