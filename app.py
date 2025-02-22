@@ -80,7 +80,7 @@ if uploaded_file is not None:
         fig.add_scatter(x=df.index, y=df['PM2.5_MA'], 
                         mode='lines', 
                         name=f'Moving Avg', 
-                        line=dict(color='red', width=2, z=10))
+                        line=dict(color='red', width=2, zorder=10))
         st.plotly_chart(fig)
 
         st.write("#### PM2.5 Stripes")
