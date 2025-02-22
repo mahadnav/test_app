@@ -66,12 +66,12 @@ if uploaded_file is not None:
         
         st.write("#### PM2.5 Time Series")
         # Time-Series Plot
-        fig, ax = plt.subplot(figsize=(30, 5))
-        px.line(df, 
+        fig = px.line(df, 
                 x=df.index, 
                 y='PM2.5', 
-                title=f'{selected_city} from {start_date.strftime("%d %B %Y")} to {end_date.strftime("%d %B %Y")}')
-        ax.set_ylabel('PM2.5 conc ($\mu$g/m$^3$)')
+                title=f'{selected_city} from {start_date.strftime("%d %B %Y")} to {end_date.strftime("%d %B %Y")}',
+                figsize=(30, 5))
+        plt.ylabel('PM2.5 conc ($\mu$g/m$^3$)')
         st.plotly_chart(fig)
 
         st.write("#### PM2.5 Stripes")
