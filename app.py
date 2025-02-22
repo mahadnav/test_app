@@ -24,6 +24,8 @@ if uploaded_file is not None:
         
         dt_col_name = df.filter(like='Datetime').columns[0]
         df.rename(columns={dt_col_name: 'datetime'}, inplace=True)
+
+        df = df[['datetime', 'City', 'Name', 'PM2.5', 'longitude', 'latitude']]
         
         st.write("### Data Preview")
         st.dataframe(df.head())
