@@ -25,37 +25,39 @@ if uploaded_file is not None:
         dt_col_name = df.filter(like='Datetime').columns[0]
         df.rename(columns={dt_col_name: 'datetime'}, inplace=True)
 
-        df = df[['datetime', 'City', 'Name', 'PM2.5', 'longitude', 'latitude']]
+        if ('Name' and 'City') in df.columns:
+            df = df[['datetime', 'City', 'Name', 'PM2.5', 'longitude', 'latitude']]
+        else:
+            df = df[['datetime', 'PM2.5', 'longitude', 'latitude']]
+
         df['datetime'] = pd.to_datetime(df['datetime'])
         df.set_index('datetime', inplace=True)
 
         st.write("### Data Preview")
         st.dataframe(df.head())
 
-        selected_years = st.multiselect("Select Year(s)", options=list(df['year'].unique()), default=list(df['year'].unique()))
-        df = df[df['year'].isin(selected_years)]
-        if selected_years != "All":
-            df = df[df.index.year.isin(selected_years)]
+        # selected_years = st.multiselect("Select Year(s)", options=list(df.index.year.unique()), default=list(df.index.year.unique()))
+        # df = df[df.index.year.isin(selected_years)]
+        # if selected_years != "All":
+        #     df = df[df.index.year.isin(selected_years)]
         
-        # if 'City' in df.columns:
-        #     selected_city = st.selectbox("Select City", options=["All"] + list(df['City'].unique()))
-        #     if selected_city != "All":
-        #         df = df[df['City'] == selected_city]
+        if 'City' in df.columns:
+            selected_city = st.selectbox("Select City", options=["All"] + list(df['City'].unique()))
+            if selected_city != "All":
+                df = df[df['City'] == selected_city]
         
-        # if 'Name' in df.columns:
-        #     selected_name = st.selectbox("Select Name", options=["All"] + list(df['Name'].unique()))
-        #     if selected_name != "All":
-        #         df = df[df['Name'] == selected_name]
+        if 'Name' in df.columns:
+            selected_name = st.selectbox("Select Name", options=["All"] + list(df['Name'].unique()))
+            if selected_name != "All":
+                df = df[df['Name'] == selected_name]
         
-        # # Filter options
-        # if 'datetime' in df.columns:
-        #     df['datetime'] = pd.to_datetime(df['datetime'])
-        #     start_date, end_date = st.date_input("Select Date Range", [df['datetime'].min(), df['datetime'].max()])
-        #     df = df[(df['datetime'] >= pd.Timestamp(start_date)) & (df['datetime'] <= pd.Timestamp(end_date))]
+        # Date Filter options
+        start_date, end_date = st.date_input("Select Date Range", [df.index.min(), df.index.max()])
+        df = df[(df.index >= pd.Timestamp(start_date)) & (df.index <= pd.Timestamp(end_date))]
 
-        # # Display basic statistics
-        # st.write("#### Summary Statistics")
-        # st.write(df.describe())
+        # Display basic statistics
+        st.write("#### Summary Statistics")
+        st.write(df.describe())
         
         # # Time-Series Plot
         # if 'datetime' in df.columns and 'PM2.5' in df.columns:
