@@ -72,7 +72,7 @@ if uploaded_file is not None:
 
         st.write("#### PM2.5 Stripes Visualization")
 
-        df['day_of_year'] = df['datetime'].dt.dayofyear
+        df['day_of_year'] = df.index.dayofyear
         df_sorted = df.sort_values(by=['year', 'day_of_year'])
         pm2_5_matrix = df_sorted.pivot(index='year', columns='day_of_year', values='PM2.5')
         
