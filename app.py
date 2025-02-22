@@ -67,12 +67,12 @@ if uploaded_file is not None:
         st.write("#### PM2.5 Time Series")
         # Time-Series Plot
         ma_days = st.number_input("Enter Moving Average Window (Days)", min_value=1, max_value=30, value=7)
-        df['PM2.5_MA'] = df['PM2.5'].rolling(window=ma_days).mean()
+        df['PM2.5_MA'] = df['PM2.5'].resample('D').mean().rolling(window=ma_days).mean()
         
         fig = px.line(df, x=df.index, y='PM2.5', 
                       title=f'{selected_city} from {start_date.strftime("%d %B %y")} to {end_date.strftime("%d %B %y")}',
                       labels={'value': 'PM2.5 Concentration'})
-        fig.add_scatter(x=df.index, y=df['PM2.5_MA'], mode='lines', name='Moving Avg', line=dict(color='red'), zorder=0)
+        fig.add_scatter(x=df.index, y=df['PM2.5_MA'], mode='lines', name='Moving Avg', line=dict(color='red'))
         st.plotly_chart(fig)
 
         st.write("#### PM2.5 Stripes")
