@@ -22,9 +22,8 @@ if uploaded_file is not None:
         col_name = df.filter(like='PM2.5').columns[0]
         df.rename(columns={col_name: "PM2.5"}, inplace=True)
         
-        # Ensure datetime is properly formatted
-        if 'Datetime (UTC+5)' in df.columns:
-            df.rename(columns={'Datetime (UTC+5)': 'datetime'}, inplace=True)
+        dt_col_name = df.filter(like='Datetime').columns[0]
+        df.rename(columns={dt_col_name: 'datetime'}, inplace=True)
         
         st.write("### Data Preview")
         st.dataframe(df.head())
@@ -32,17 +31,17 @@ if uploaded_file is not None:
         # Display basic statistics
         st.write("### Summary Statistics")
         st.write(df.describe())
+
+        if 'City' in df.columns:
+            selected_city = st.selectbox("Select City", options=["All"] + list(df['City'].unique()))
+            if selected_city != "All":
+                df = df[df['City'] == selected_city]
         
         # Filter by Name and City if columns exist
         if 'Name' in df.columns:
             selected_name = st.selectbox("Select Name", options=["All"] + list(df['Name'].unique()))
             if selected_name != "All":
                 df = df[df['Name'] == selected_name]
-        
-        if 'City' in df.columns:
-            selected_city = st.selectbox("Select City", options=["All"] + list(df['City'].unique()))
-            if selected_city != "All":
-                df = df[df['City'] == selected_city]
         
         # Filter options
         if 'datetime' in df.columns:
