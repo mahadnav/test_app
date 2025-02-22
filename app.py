@@ -59,7 +59,7 @@ if uploaded_file is not None:
         df.sort_index(inplace=True)
 
         # Display basic statistics
-        st.write("##### Summary Statistics")
+        st.write("##### \nSummary Statistics")
         st.write(df[['PM2.5']].describe().loc[['min', 'max', 'mean']])
         
         # Time-Series Plot
