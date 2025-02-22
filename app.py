@@ -109,7 +109,9 @@ if uploaded_file is not None:
         st.pyplot(fig)
 
         st.write("#### Comparative Analysis")
-        city_avg_pm25 = df.groupby('City')['PM2.5'].mean().reset_index()
+        city_avg_pm25 = df.groupby('City')['PM2.5'].mean()
+        selected_cities = st.multi("Select Cities", options=list(df.City.unique()), default=['Lahore', 'Karachi'])
+        city_avg_pm25 = city_avg_pm25.City.isin(selected_cities)
         fig = px.bar(city_avg_pm25, x='City', y='PM2.5', title='Average PM2.5 Concentration by City', labels={'PM2.5': 'Average PM2.5'})
         st.plotly_chart(fig)
         
