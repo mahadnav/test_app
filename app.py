@@ -79,8 +79,6 @@ if uploaded_file is not None:
         fig.add_traces(scatter)
         fig.add_traces(line)
 
-        fig['data'][0]['line']['color']='red'
-        
         st.plotly_chart(fig)
 
         st.write("#### PM2.5 Stripes")
@@ -107,10 +105,12 @@ if uploaded_file is not None:
 
         # Adding space between plots for each year
         fig.subplots_adjust(bottom=0.5, hspace=0.5)
-        
         ax. set_frame_on(False)
-        
         st.pyplot(fig)
+
+        st.write("#### Comparitive Analysis")
+        
+
     
         # # Geospatial Visualization (if lat/lon are present)
         # if 'latitude' in df.columns and 'longitude' in df.columns:
