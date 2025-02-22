@@ -109,12 +109,9 @@ if uploaded_file is not None:
         st.pyplot(fig)
 
         st.write("#### Comparative Analysis")
-        city_avg_pm25 = df.groupby('City')['PM2.5'].mean()
+        city_avg_pm25 = df.pivot_table(index = 'datetime', columns='City', values='PM2.5', aggfunc='mean')
         selected_cities = st.multi("Select Cities", options=list(df.City.unique()), default=['Lahore', 'Karachi'])
         city_avg_pm25 = city_avg_pm25.City.isin(selected_cities)
-        fig = px.bar(city_avg_pm25, x='City', y='PM2.5', title='Average PM2.5 Concentration by City', labels={'PM2.5': 'Average PM2.5'})
-        st.plotly_chart(fig)
-        
         city_trends = px.line(df, x='datetime', y='PM2.5', color='City', title='PM2.5 Trends Across Cities')
         st.plotly_chart(city_trends)
 
