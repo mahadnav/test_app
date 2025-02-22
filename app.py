@@ -83,11 +83,10 @@ if uploaded_file is not None:
         
         # Customizing the appearance
         ax.set_yticks(np.arange(len(pm2_5_matrix.index)))
-        ax.set_yticklabels(pm2_5_matrix.index, color='white')
+        ax.set_yticklabels(pm2_5_matrix.index, color='white', fontsize=20)
         ax.set_xticks([])  # Remove xticks
-        ax.set_title("PM2.5 Stripes", color='white')
         ax.set_xlabel("")
-        ax.set_ylabel("Year", color='white')
+        # ax.set_ylabel("Year", color='white')
         fig.patch.set_alpha(0)  # Transparent background
         ax.set_facecolor("none")
         
