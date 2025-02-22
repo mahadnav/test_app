@@ -49,7 +49,7 @@ if uploaded_file is not None:
                 df = df[df['City'] == selected_city]
         
         if 'Name' in df.columns:
-            selected_name = st.selectbox("Select Name", options=["All"] + list(df['Name'].unique()))
+            selected_name = st.selectbox("Select Monitor", options=["All"] + list(df['Name'].unique()))
             if selected_name != "All":
                 df = df[df['Name'] == selected_name]
         
@@ -59,7 +59,7 @@ if uploaded_file is not None:
         df.sort_index(inplace=True)
 
         # Display basic statistics
-        st.write("#### Summary Statistics")
+        st.write("##### Summary Statistics")
         st.write(df[['PM2.5']].describe().loc[['min', 'max', 'mean']])
         
         # Time-Series Plot
