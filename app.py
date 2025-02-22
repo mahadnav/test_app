@@ -26,9 +26,16 @@ if uploaded_file is not None:
         df.rename(columns={dt_col_name: 'datetime'}, inplace=True)
 
         df = df[['datetime', 'City', 'Name', 'PM2.5', 'longitude', 'latitude']]
-        
+        df['datetime'] = pd.to_datetime(df['datetime'])
+        df.set_index('datetime', inplace=True)
+
         st.write("### Data Preview")
         st.dataframe(df.head())
+
+        selected_years = st.multiselect("Select Year(s)", options=list(df['year'].unique()), default=list(df['year'].unique()))
+        df = df[df['year'].isin(selected_years)]
+        if selected_years != "All":
+            df = df[df.index.year.isin(selected_years)]
         
         # if 'City' in df.columns:
         #     selected_city = st.selectbox("Select City", options=["All"] + list(df['City'].unique()))
