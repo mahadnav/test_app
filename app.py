@@ -6,7 +6,7 @@ import xarray as xr
 from streamlit_folium import folium_static
 
 # Streamlit App Title
-st.title("PM2.5 Data Analysis & Visualization Tool")
+st.title("PM2.5 Data Analysis & Visualization")
 
 # Upload File
 uploaded_file = st.file_uploader("Upload your dataset (CSV, Excel, or NetCDF)", type=["csv", "xlsx", "nc"])
