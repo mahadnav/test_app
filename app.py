@@ -108,8 +108,13 @@ if uploaded_file is not None:
         ax. set_frame_on(False)
         st.pyplot(fig)
 
-        st.write("#### Comparitive Analysis")
+        st.write("#### Comparative Analysis")
+        city_avg_pm25 = df.groupby('City')['PM2.5'].mean().reset_index()
+        fig = px.bar(city_avg_pm25, x='City', y='PM2.5', title='Average PM2.5 Concentration by City', labels={'PM2.5': 'Average PM2.5'})
+        st.plotly_chart(fig)
         
+        city_trends = px.line(df, x='datetime', y='PM2.5', color='City', title='PM2.5 Trends Across Cities')
+        st.plotly_chart(city_trends)
 
     
         # # Geospatial Visualization (if lat/lon are present)
