@@ -74,7 +74,8 @@ if uploaded_file is not None:
 
         df['day_of_year'] = df.index.dayofyear
         df['year'] = df.index.year
-        pm2_5_matrix = df.pivot(index='year', columns='day_of_year', values='PM2.5')
+        df_grouped = df.groupby(['year', 'day_of_year'])['PM2.5'].mean().reset_index()
+        pm2_5_matrix = df_grouped.pivot(index='year', columns='day_of_year', values='PM2.5')
         
         fig, ax = plt.subplots(figsize=(20, 5))
         ax.imshow(pm2_5_matrix, aspect='auto', cmap='coolwarm', interpolation='nearest')
