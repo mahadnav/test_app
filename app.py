@@ -61,10 +61,9 @@ if uploaded_file is not None:
         st.write("#### Summary Statistics")
         st.write(df[['PM2.5']].describe().loc[['min', 'max', 'mean']])
         
-        # # Time-Series Plot
-        # if 'datetime' in df.columns and 'PM2.5' in df.columns:
-        #     fig = px.line(df, x='datetime', y='PM2.5', title='PM2.5 Levels Over Time')
-        #     st.plotly_chart(fig)
+        # Time-Series Plot
+        fig = px.line(df, x=df.index, y='PM2.5', title=f'PM2.5 Levels in {selected_city} from {start_date} - {end_date}')
+        st.plotly_chart(fig)
         
         # # Geospatial Visualization (if lat/lon are present)
         # if 'latitude' in df.columns and 'longitude' in df.columns:
