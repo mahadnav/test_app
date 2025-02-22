@@ -63,23 +63,25 @@ if uploaded_file is not None:
         df = df[(df.index >= pd.Timestamp(start_date)) & (df.index <= pd.Timestamp(end_date))]
         df.sort_index(inplace=True)
 
-        # Display basic statistics
+        ##################### new section
         st.write("#### \nSummary Statistics")
         st.write(df[['PM2.5']].describe().loc[['min', 'max', 'mean']])
         
+        ##################### new section
         st.write("#### PM2.5 Time Series")
         # Time-Series Plot
-        ma_days = st.number_input("Enter Moving Average Window (Days)", min_value=1, max_value=30, value=7)
-        df['PM2.5_MA'] = df['PM2.5'].rolling(window=ma_days).mean()
+        # ma_days = st.number_input("Enter Moving Average Window (Days)", min_value=1, max_value=30, value=7)
+        # df['PM2.5_MA'] = df['PM2.5'].rolling(window=ma_days).mean()
         
         scatter = go.Scatter(x=df.index, y=df['PM2.5'], mode='markers')
-        line = go.Scatter(x=df.index, y=df['PM2.5_MA'])
+        # line = go.Scatter(x=df.index, y=df['PM2.5_MA'])
         
         fig = go.Figure()
         fig.add_traces(scatter)
         # fig.add_traces(line)
         st.plotly_chart(fig)
 
+        ##################### new section
         st.write("#### PM2.5 Stripes")
         df['day_of_year'] = df.index.dayofyear
         df['year'] = df.index.year
@@ -106,6 +108,7 @@ if uploaded_file is not None:
         ax. set_frame_on(False)
         st.pyplot(fig)
 
+        ##################### new section
         st.write("#### Comparative Analysis")
         city_avg_pm25 = df.pivot_table(index = 'datetime', columns='City', values='PM2.5', aggfunc='mean')
         selected_cities = st.multiselect("Select Cities", options=list(df.City.unique()), default=['Lahore', 'Karachi'])
