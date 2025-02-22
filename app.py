@@ -54,6 +54,8 @@ if uploaded_file is not None:
             selected_name = st.selectbox("Select Monitor", options=["All"] + list(df['Name'].unique()))
             if selected_name != "All":
                 df = df[df['Name'] == selected_name]
+
+        df['PM2.5'] = df['PM2.5'].resample('1h').mean()
         
         # Date Filter options
         start_date, end_date = st.date_input("Select Date Range", [df.index.min(), df.index.max()])
