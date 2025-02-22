@@ -72,8 +72,8 @@ if uploaded_file is not None:
         fig = px.line(df, x=df.index, y='PM2.5', 
                       title=f'{selected_city} from {start_date.strftime("%d %B %y")} to {end_date.strftime("%d %B %y")}',
                       labels={'value': 'PM2.5 Concentration'},
-                      opacity=0.7, width=0.7)
-        fig.add_scatter(x=df.index, y=df['PM2.5_MA'], mode='lines', name='Moving Avg', line=dict(color='red'), zorder=3)
+                      opacity=0.7)
+        fig.add_scatter(x=df.index, y=df['PM2.5_MA'], mode='lines', name='Moving Avg', line=dict(color='red'), zorder=0)
         st.plotly_chart(fig)
 
         st.write("#### PM2.5 Stripes")
