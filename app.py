@@ -77,12 +77,10 @@ if uploaded_file is not None:
         
         fig = go.Figure()
         fig.add_traces(scatter)
-        fig.add_traces(line)
-
+        # fig.add_traces(line)
         st.plotly_chart(fig)
 
         st.write("#### PM2.5 Stripes")
-
         df['day_of_year'] = df.index.dayofyear
         df['year'] = df.index.year
         df_grouped = df.groupby(['year', 'day_of_year'])['PM2.5'].mean().reset_index()
