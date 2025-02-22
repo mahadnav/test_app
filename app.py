@@ -57,7 +57,7 @@ if uploaded_file is not None:
 
         # Display basic statistics
         st.write("#### Summary Statistics")
-        st.write(df.describe())
+        st.write(df[['PM2.5']].describe().loc[['min', 'max', 'mean']])
         
         # # Time-Series Plot
         # if 'datetime' in df.columns and 'PM2.5' in df.columns:
