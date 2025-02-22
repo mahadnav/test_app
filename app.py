@@ -72,7 +72,7 @@ if uploaded_file is not None:
         ma_days = st.number_input("Enter Moving Average Window (Days)", min_value=1, max_value=30, value=7)
         df['PM2.5_MA'] = df['PM2.5'].rolling(window=ma_days).mean()
         
-        scatter = go.Scatter(x=df.index, y=df['PM2.5'])
+        scatter = go.Scatter(x=df.index, y=df['PM2.5'], mode='marker', color='red')
         line = go.Scatter(x=df.index, y=df['PM2.5_MA'])
         
         fig = go.Figure()
