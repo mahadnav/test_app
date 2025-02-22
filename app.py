@@ -73,7 +73,7 @@ if uploaded_file is not None:
         
         scatter = px.scatter(df, x=df.index, y='PM2.5', 
                   title=f'{selected_city} from {start_date.strftime("%d %B %y")} to {end_date.strftime("%d %B %y")}')
-        line = px.line(x=df.index, y=df['PM2.5_MA'], showlegend=True)
+        line = px.line(x=df.index, y=df['PM2.5_MA'])
         
         fig = px.Figure()
         fig.add_traces(scatter)
