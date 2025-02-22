@@ -70,9 +70,9 @@ if uploaded_file is not None:
         df['PM2.5_MA'] = df['PM2.5'].rolling(window=ma_days).mean()
         
         fig = px.line(df, x=df.index, y='PM2.5', 
-                      title=f'PM2.5 Levels in {selected_city} from {start_date.strftime("%d %B %y")} to {end_date.strftime("%d %B %y")}',
+                      title=f'{selected_city} from {start_date.strftime("%d %B %y")} to {end_date.strftime("%d %B %y")}',
                       labels={'value': 'PM2.5 Concentration'})
-        fig.add_scatter(x=df.index, y=df['PM2.5_MA'], mode='lines', name='Moving Avg', line=dict(color='red'))
+        fig.add_scatter(x=df.index, y=df['PM2.5_MA'], mode='lines', name='Moving Avg', line=dict(color='red'), zorder=3)
         st.plotly_chart(fig)
 
         st.write("#### PM2.5 Stripes")
