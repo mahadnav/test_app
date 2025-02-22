@@ -111,7 +111,7 @@ if uploaded_file is not None:
         ##################### new section
         st.write("#### Comparative Analysis")
         city_avg_pm25 = df.pivot_table(index = 'datetime', columns='City', values='PM2.5', aggfunc='mean')
-        selected_cities = st.multiselect("Select Cities", options=list(df.City.unique()), default=['Lahore', 'Karachi'])
+        selected_cities = st.multiselect("Select Cities", options=list(df.City.unique()), default=None)
         city_avg_pm25 = city_avg_pm25[selected_cities]
         city_trends = px.line(city_avg_pm25, x=city_avg_pm25.index, y=selected_cities)
         st.plotly_chart(city_trends)
