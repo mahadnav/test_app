@@ -81,6 +81,7 @@ if uploaded_file is not None:
                         mode='lines', 
                         name=f'{ma_days}-Day Moving Avg', 
                         line=dict(color='red', width=2))
+        fig.update_traces(selector=dict(name=f'{ma_days}-Day Moving Avg'), line=dict(z=10))
         st.plotly_chart(fig)
 
         st.write("#### PM2.5 Stripes")
