@@ -69,7 +69,7 @@ if uploaded_file is not None:
         st.write("#### PM2.5 Time Series")
         # Time-Series Plot
         ma_days = st.number_input("Enter Moving Average Window (Days)", min_value=1, max_value=30, value=7)
-        df['PM2.5_MA'] = df['PM2.5'].resample('D').mean().rolling(window=ma_days).mean()
+        df['PM2.5_MA'] = df['PM2.5'].rolling(window=ma_days).mean()
         
         fig = px.line(df, x=df.index, y='PM2.5', 
                       title=f'{selected_city} from {start_date.strftime("%d %B %y")} to {end_date.strftime("%d %B %y")}',
