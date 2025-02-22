@@ -78,7 +78,9 @@ if uploaded_file is not None:
         pm2_5_matrix = df_grouped.pivot(index='year', columns='day_of_year', values='PM2.5')
         
         fig, ax = plt.subplots(figsize=(20, 5))
-        ax.imshow(pm2_5_matrix, aspect='auto', cmap='coolwarm', interpolation='nearest')
+        ax.imshow(pm2_5_matrix, aspect='auto', cmap='coolwarm', interpolation='nearest', vmax=250)
+        ax.set_xlabel("Day of Year")
+        ax.set_ylabel("Year")
         st.pyplot(fig)
     
         # # Geospatial Visualization (if lat/lon are present)
