@@ -21,7 +21,8 @@ if uploaded_file is not None:
     if df is not None:
         col_name = df.filter(like='PM2.5').columns[0]
         df.rename(columns={col_name: "PM2.5"}, inplace=True)
-        df['PM2.5'] = round(df['PM2.5'] > 5, 0)
+        df = df[df['PM2.5'] > 5]
+        df['PM2.5'] = round(df['PM2.5'], 0)
         
         dt_col_name = df.filter(like='Datetime').columns[0]
         df.rename(columns={dt_col_name: 'datetime'}, inplace=True)
