@@ -78,12 +78,12 @@ if uploaded_file is not None:
         df_grouped = df.groupby(['year', 'day_of_year'])['PM2.5'].mean().reset_index()
         pm2_5_matrix = df_grouped.pivot(index='year', columns='day_of_year', values='PM2.5')
         
-        fig, ax = plt.subplots(figsize=(20, 10))
+        fig, ax = plt.subplots(figsize=(20, 20))
         im = ax.imshow(pm2_5_matrix, aspect='auto', cmap='coolwarm', interpolation='nearest', vmax=250)
         
         # Customizing the appearance
         ax.set_yticks(np.arange(len(pm2_5_matrix.index)))
-        ax.set_yticklabels(pm2_5_matrix.index, color='white', fontsize=20)
+        ax.set_yticklabels(pm2_5_matrix.index, color='white', fontsize=24)
         ax.set_xticks([])  # Remove xticks
         ax.set_xlabel("")
         # ax.set_ylabel("Year", color='white')
@@ -91,7 +91,7 @@ if uploaded_file is not None:
         ax.set_facecolor("none")
 
         # Adding space between plots for each year
-        plt.subplots_adjust(bottom=0.5, hspace=0.5)
+        fig.subplots_adjust(bottom=0.5, hspace=0.5)
         
         ax. set_frame_on(False)
         
