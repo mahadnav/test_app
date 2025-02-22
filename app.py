@@ -79,9 +79,9 @@ if uploaded_file is not None:
         # Adding Moving Average on Top
         fig.add_scatter(x=df.index, y=df['PM2.5_MA'], 
                         mode='lines', 
-                        name=f'{ma_days}-Day Moving Avg', 
+                        name=f'Moving Avg', 
                         line=dict(color='red', width=2))
-        fig.update_traces(selector=dict(name=f'{ma_days}-Day Moving Avg'), line=dict(z=10))
+        fig.update_traces(selector=dict(name=f'Moving Avg'), line=dict(z=10))
         st.plotly_chart(fig)
 
         st.write("#### PM2.5 Stripes")
