@@ -76,7 +76,7 @@ if uploaded_file is not None:
                   labels={'PM2.5': 'PM2.5 Conc.', 'PM2.5_MA': 'Moving Avg'},
                   line_shape='linear',
                   )
-        fig['data'][0]['line']['color']='red'
+        fig['data'][1]['line']['color']='red'
         st.plotly_chart(fig)
 
         st.write("#### PM2.5 Stripes")
