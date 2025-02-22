@@ -69,8 +69,7 @@ if uploaded_file is not None:
         fig = px.line(df, 
                 x=df.index, 
                 y='PM2.5', 
-                title=f'{selected_city} from {start_date.strftime("%d %B %Y")} to {end_date.strftime("%d %B %Y")}',
-                figsize=(30, 5))
+                title=f'{selected_city} from {start_date.strftime("%d %B %Y")} to {end_date.strftime("%d %B %Y")}')
         plt.ylabel('PM2.5 conc ($\mu$g/m$^3$)')
         st.plotly_chart(fig)
 
