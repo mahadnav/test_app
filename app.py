@@ -69,9 +69,10 @@ if uploaded_file is not None:
         ma_days = st.number_input("Enter Moving Average Window (Days)", min_value=1, max_value=30, value=7)
         df['PM2.5_MA'] = df['PM2.5'].rolling(window=ma_days).mean()
         
-        fig = px.line(df, x=df.index, y=['PM2.5', 'PM2.5_MA'], 
-                        title=f'{selected_city} from {start_date.strftime("%d %B %y")} to {end_date.strftime("%d %B %y")}',
-                        labels={'value': 'PM2.5 Concentration (ug/m3)', 'variable': 'Legend'})
+        fig = px.line(df, x=df.index, y='PM2.5', 
+                          title=f'PM2.5 Levels in {selected_city} from {start_date.strftime("%d %B %y")} to {end_date.strftime("%d %B %y")}',
+                          labels={'value': 'PM2.5 Concentration', 'variable': 'Legend'})
+        fig.add_scatter(df, x=df.index, y='PM2.5_MA', mode='lines', name='Moving Avg', line=dict(color='red'))
         st.plotly_chart(fig)
 
         st.write("#### PM2.5 Stripes")
