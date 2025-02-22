@@ -9,7 +9,7 @@ from streamlit_folium import folium_static
 st.title("PM2.5 Data Analysis & Visualization")
 
 # Upload File
-uploaded_file = st.file_uploader("Upload your dataset (CSV, Excel, or NetCDF)", type=["csv", "xlsx", "nc"])
+uploaded_file = st.file_uploader("Upload your dataset", type=["csv", "xlsx"])
 
 df = None
 if uploaded_file is not None:
@@ -17,15 +17,10 @@ if uploaded_file is not None:
         df = pd.read_csv(uploaded_file)
     elif uploaded_file.name.endswith("xlsx"):
         df = pd.read_excel(uploaded_file)
-    elif uploaded_file.name.endswith("nc"):
-        ds = xr.open_dataset(uploaded_file)
-        df = ds.to_dataframe().reset_index()
     
     if df is not None:
-        # Rename PM2.5 column if it has variations
-        for col in df.columns:
-            if "PM2.5" in col:
-                df.rename(columns={col: "PM2.5"}, inplace=True)
+        col_name = df.filter(like='PM2.5').columns[0]
+        df.rename(columns={col_name: "PM2.5"}, inplace=True)
         
         # Ensure datetime is properly formatted
         if 'Datetime (UTC+5)' in df.columns:
