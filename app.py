@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
+import plotly.graph_objects as go
 import folium
 import xarray as xr
 import matplotlib.pyplot as plt
@@ -71,11 +72,10 @@ if uploaded_file is not None:
         ma_days = st.number_input("Enter Moving Average Window (Days)", min_value=1, max_value=30, value=7)
         df['PM2.5_MA'] = df['PM2.5'].rolling(window=ma_days).mean()
         
-        scatter = px.scatter(df, x=df.index, y='PM2.5', 
-                  title=f'{selected_city} from {start_date.strftime("%d %B %y")} to {end_date.strftime("%d %B %y")}')
-        line = px.line(x=df.index, y=df['PM2.5_MA'])
+        scatter = go.Scatter(x=df.index, y=df['PM2.5'])
+        line = go.Scatter(x=df.index, y=df['PM2.5_MA'])
         
-        fig = px.Figure()
+        fig = go.Figure()
         fig.add_traces(scatter)
         fig.add_traces(line)
         st.plotly_chart(fig)
