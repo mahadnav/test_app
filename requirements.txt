@@ -4,3 +4,4 @@ plotly
 folium
 xarray
 streamlit-folium
+matplotlib

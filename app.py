@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.express as px
 import folium
 import xarray as xr
+import matplotlib.pyplot as plt
 from streamlit_folium import folium_static
 
 # Streamlit App Title
@@ -59,7 +60,7 @@ if uploaded_file is not None:
         df.sort_index(inplace=True)
 
         # Display basic statistics
-        st.write("##### \nSummary Statistics")
+        st.write("#### \nSummary Statistics")
         st.write(df[['PM2.5']].describe().loc[['min', 'max', 'mean']])
         
         # Time-Series Plot
@@ -68,7 +69,18 @@ if uploaded_file is not None:
                       y='PM2.5', 
                       title=f'PM2.5 Levels in {selected_city} from {start_date.strftime("%d %B %Y")} to {end_date.strftime("%d %B %Y")}')
         st.plotly_chart(fig)
+
+        st.write("#### PM2.5 Stripes Visualization")
+
+        df['day_of_year'] = df['datetime'].dt.dayofyear
+        df_sorted = df.sort_values(by=['year', 'day_of_year'])
+        pm2_5_matrix = df_sorted.pivot(index='year', columns='day_of_year', values='PM2.5')
         
+        fig, ax = plt.subplots(figsize=(20, 5))
+        ax.imshow(pm2_5_matrix, aspect='auto', cmap='coolwarm', interpolation='nearest')
+        ax.set_title("PM2.5 Stripes")
+        st.pyplot(fig)
+    
         # # Geospatial Visualization (if lat/lon are present)
         # if 'latitude' in df.columns and 'longitude' in df.columns:
         #     st.write("### Geospatial Visualization")
