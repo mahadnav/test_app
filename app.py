@@ -79,7 +79,10 @@ if uploaded_file is not None:
         pm2_5_matrix = df_grouped.pivot(index='year', columns='day_of_year', values='PM2.5')
         
         fig, ax = plt.subplots(figsize=(20, 20))
-        im = ax.imshow(pm2_5_matrix, aspect='auto', cmap='coolwarm', interpolation='nearest', vmax=250)
+        im = ax.imshow(pm2_5_matrix, aspect='auto', 
+                       cmap='RdBu_r', 
+                       interpolation='nearest', 
+                       vmin=0, vmax=250)
         
         # Customizing the appearance
         ax.set_yticks(np.arange(len(pm2_5_matrix.index)))
