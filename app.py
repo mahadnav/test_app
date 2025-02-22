@@ -73,7 +73,7 @@ if uploaded_file is not None:
         
         fig = px.line(df, x=df.index, y=['PM2.5', 'PM2.5_MA'], 
                   title=f'{selected_city} from {start_date.strftime("%d %B %y")} to {end_date.strftime("%d %B %y")}',
-                  labels={'PM2.5 Conc.', 'Moving Avg'},
+                  labels={'PM2.5': 'PM2.5 Conc.', 'PM2.5_MA': 'Moving Avg'},
                   line_shape='linear')
         st.plotly_chart(fig)
 
