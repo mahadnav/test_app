@@ -64,14 +64,18 @@ if uploaded_file is not None:
         st.write("#### \nSummary Statistics")
         st.write(df[['PM2.5']].describe().loc[['min', 'max', 'mean']])
         
+        st.write("#### PM2.5 Time Series")
         # Time-Series Plot
-        fig = px.line(df, 
-                      x=df.index, 
-                      y='PM2.5', 
-                      title=f'PM2.5 Levels in {selected_city} from {start_date.strftime("%d %B %Y")} to {end_date.strftime("%d %B %Y")}')
+        fig, ax = plt.subplot(figsize=(30, 5))
+        px.line(df,
+                ax=ax, 
+                x=df.index, 
+                y='PM2.5', 
+                title=f'{selected_city} from {start_date.strftime("%d %B %Y")} to {end_date.strftime("%d %B %Y")}')
+        ax.set_ylabel('PM2.5 conc ($\mu$g/m$^3$)')
         st.plotly_chart(fig)
 
-        st.write("#### PM2.5 Stripes Visualization")
+        st.write("#### PM2.5 Stripes")
 
         df['day_of_year'] = df.index.dayofyear
         df['year'] = df.index.year
