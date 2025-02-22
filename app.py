@@ -91,7 +91,7 @@ if uploaded_file is not None:
         ax.set_facecolor("none")
 
         # Adding space between plots for each year
-        plt.subplots_adjust(vspace=5)
+        plt.subplots_adjust(bottom=0.5, hspace=0.5)
         
         ax. set_frame_on(False)
         
