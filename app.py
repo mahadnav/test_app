@@ -89,6 +89,7 @@ if uploaded_file is not None:
         # ax.set_ylabel("Year", color='white')
         fig.patch.set_alpha(0)  # Transparent background
         ax.set_facecolor("none")
+        ax. set_frame_on(False)
         
         st.pyplot(fig)
     
