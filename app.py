@@ -71,7 +71,7 @@ if uploaded_file is not None:
         
         fig = px.line(df, x=df.index, y=['PM2.5', 'PM2.5_MA'], 
                         title=f'{selected_city} from {start_date.strftime("%d %B %y")} to {end_date.strftime("%d %B %y")}',
-                        labels={'value': 'PM2.5 Concentration ($\mu$g/m$^3$)', 'variable': 'Legend'})
+                        labels={'value': 'PM2.5 Concentration (ug/m3)', 'variable': 'Legend'})
         st.plotly_chart(fig)
 
         st.write("#### PM2.5 Stripes")
