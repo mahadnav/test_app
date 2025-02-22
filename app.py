@@ -66,7 +66,7 @@ if uploaded_file is not None:
         fig = px.line(df, 
                       x=df.index, 
                       y='PM2.5', 
-                      title=f'PM2.5 Levels in {selected_city} from {start_date.strftime("%d %B %y")} to {end_date.strftime("%d %B %y")}')
+                      title=f'PM2.5 Levels in {selected_city} from {start_date.strftime("%d %B %yyyy")} to {end_date.strftime("%d %B %yyyy")}')
         st.plotly_chart(fig)
         
         # # Geospatial Visualization (if lat/lon are present)
