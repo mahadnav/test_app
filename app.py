@@ -56,6 +56,7 @@ if uploaded_file is not None:
         # Date Filter options
         start_date, end_date = st.date_input("Select Date Range", [df.index.min(), df.index.max()])
         df = df[(df.index >= pd.Timestamp(start_date)) & (df.index <= pd.Timestamp(end_date))]
+        df.sort_index(inplace=True)
 
         # Display basic statistics
         st.write("#### Summary Statistics")
