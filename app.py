@@ -66,7 +66,39 @@ if uploaded_file is not None:
 
         ##################### new section
         st.write("#### \nSummary Statistics")
-        st.write(copy_df[['PM2.5']].describe().loc[['min', 'max', 'mean']])
+
+        # Calculate KPIs
+        min_pm25 = copy_df["PM2.5"].min()
+        max_pm25 = copy_df["PM2.5"].max()
+        mean_pm25 = copy_df["PM2.5"].mean()
+
+        # Create small trend graphs using Plotly
+        def create_sparkline(data, color):
+            fig = go.Figure()
+            fig.add_trace(go.Scatter(y=data, mode="lines", line=dict(color=color, width=2), fill="tozeroy"))
+            fig.update_layout(margin=dict(l=0, r=0, t=0, b=0), xaxis=dict(visible=False), yaxis=dict(visible=False), height=50)
+            return fig
+
+        # Streamlit Layout
+        st.markdown("### Air Quality KPIs")
+
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            st.markdown("**Min PM2.5**")
+            st.markdown(f"<h2 style='text-align: center;'>{min_pm25} ppm</h2>", unsafe_allow_html=True)
+            st.plotly_chart(create_sparkline(copy_df["PM2.5"], "green"), use_container_width=True)
+
+        with col2:
+            st.markdown("**Mean PM2.5**")
+            st.markdown(f"<h2 style='text-align: center;'>{round(mean_pm25, 1)} ppm</h2>", unsafe_allow_html=True)
+            st.plotly_chart(create_sparkline(copy_df["PM2.5"], "blue"), use_container_width=True)
+
+        with col3:
+            st.markdown("**Max PM2.5**")
+            st.markdown(f"<h2 style='text-align: center;'>{max_pm25} ppm</h2>", unsafe_allow_html=True)
+            st.plotly_chart(create_sparkline(copy_df["PM2.5"], "red"), use_container_width=True)
+        # st.write(copy_df[['PM2.5']].describe().loc[['min', 'max', 'mean']])
         
         ##################### new section
         st.write("#### PM2.5 Time Series")
@@ -134,7 +166,7 @@ if uploaded_file is not None:
             else:
                 city_avg_pm25 = city_avg_pm25.resample('ys').mean().sort_index()
                 city_avg_pm25.index = city_avg_pm25.index.year  
-                city_trends = px.bar(city_avg_pm25, x=city_avg_pm25.index, y=selected_cities, barmode="group", labels=None)
+                city_trends = px.bar(city_avg_pm25, x=city_avg_pm25.index, y=selected_cities, barmode="group")
 
             st.plotly_chart(city_trends)
         
