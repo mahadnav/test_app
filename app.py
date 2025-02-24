@@ -174,7 +174,7 @@ if uploaded_file is not None:
                 var bgColor = getColor(maxPm25);
 
                 return L.divIcon({
-                    html: '<div style="background-color:' + bgColor + '; color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold;">' + maxPm25.toFixed(1) + '</div>',
+                    html: '<div style="background-color:' + bgColor + '; color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold;">' + maxPm25.toFixed(0) + '</div>',
                     className: 'marker-cluster',
                     iconSize: L.point(40, 40)
                 });
