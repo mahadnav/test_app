@@ -192,10 +192,9 @@ if uploaded_file is not None:
                 marker.options["pm25"] = round(row['PM2.5'], 0)
                 marker.add_to(marker_cluster)
                 
-                text_html = f'''<div style="color: white; font-size: 12px; font-weight: bold; text-align: center;">{round(row['PM2.5'])}</div>'''
+                # text_html = f'''<div style="color: white; font-size: 12px; font-weight: bold; text-align: center;">{round(row['PM2.5'])}</div>'''
                 folium.Marker(
-                    [row['latitude'], row['longitude']],
-                    icon=folium.DivIcon(html=text_html)
+                    [row['latitude'], row['longitude']]
                 ).add_to(marker_cluster)
             
             marker_cluster.add_to(m)
