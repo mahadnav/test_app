@@ -146,7 +146,7 @@ if uploaded_file is not None:
             map_df = map_df.loc[start_date:end_date]
             map_df = pd.DataFrame(map_df.groupby(['Name', 'longitude', 'latitude'])['PM2.5'].mean()).reset_index()
 
-            m = folium.Map(location=[map_df['latitude'].mean(), map_df['longitude'].mean()], zoom_start=10)
+            m = folium.Map(location=[map_df['latitude'].mean(), map_df['longitude'].mean()], zoom_start=8)
 
             # US EPA PM2.5 Breakpoints and Colors
             pm25_breakpoints = [0, 12, 35.4, 55.4, 150.4, 250.4, 500.4]
@@ -171,7 +171,7 @@ if uploaded_file is not None:
                 }
 
                 return L.divIcon({
-                    html: '<div style="background-color: None; border-radius: 50%; padding: 1px; text-align: center;"><b>' + maxPm25.toFixed(1) + '</b></div>',
+                    html: '<div style="background-color: None; border-radius: 50%; padding: 1px; text-align: center;"><b>' + maxPm25.toFixed(0) + '</b></div>',
                     className: 'marker-cluster marker-cluster-small',
                     iconSize: new L.Point(40, 40)
                 });
@@ -184,7 +184,7 @@ if uploaded_file is not None:
                 color = get_pm25_color(row['PM2.5']) if not pd.isna(row['PM2.5']) else "gray"
                 marker = folium.CircleMarker(
                     [row['latitude'], row['longitude']],
-                    radius=5,
+                    radius=10,
                     color=color,
                     fill=True,
                     fill_opacity=0.7
