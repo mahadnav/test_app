@@ -109,23 +109,27 @@ if uploaded_file is not None:
 
         ##################### new section
         st.write("#### Comparative Analysis")
-        city_avg_pm25 = df.pivot_table(index = 'datetime', columns='City', values='PM2.5', aggfunc='mean')
-        selected_cities = st.multiselect("Select Cities", options=list(df['City'].unique()), default=None)
-        city_avg_pm25 = city_avg_pm25[selected_cities]
+        if len(df['City'].nunique()) > 1:
+            city_avg_pm25 = df.pivot_table(index = 'datetime', columns='City', values='PM2.5', aggfunc='mean')
+            selected_cities = st.multiselect("Select Cities", options=list(df['City'].unique()), default=None)
+            city_avg_pm25 = city_avg_pm25[selected_cities]
 
-        # daily, monthly, annually
-        selected_trend = st.select("Select Time Trend", options=['Daily', 'Monthly', 'Annually'], default=['Daily'])
+            # daily, monthly, annually
+            selected_trend = st.select("Select Time Trend", options=['Daily', 'Monthly', 'Annually'], default=['Daily'])
 
-        if selected_trend == 'Daily':
-            city_avg_pm25 = city_avg_pm25.resample('1D').mean().sort_index()
-        elif selected_trend == 'Monthly':
-            city_avg_pm25 = city_avg_pm25.resample('1M').mean().sort_index()
+            if selected_trend == 'Daily':
+                city_avg_pm25 = city_avg_pm25.resample('1D').mean().sort_index()
+            elif selected_trend == 'Monthly':
+                city_avg_pm25 = city_avg_pm25.resample('1M').mean().sort_index()
+            else:
+                city_avg_pm25 = city_avg_pm25.resample('1Y').mean().sort_index()
+
+
+            city_trends = px.line(city_avg_pm25, x=city_avg_pm25.index, y=selected_cities)
+            st.plotly_chart(city_trends)
+        
         else:
-            city_avg_pm25 = city_avg_pm25.resample('1Y').mean().sort_index()
-
-
-        city_trends = px.line(city_avg_pm25, x=city_avg_pm25.index, y=selected_cities)
-        st.plotly_chart(city_trends)
+            st.write("###### Need more than 1 city for comparison!")
 
     
         # # Geospatial Visualization (if lat/lon are present)
