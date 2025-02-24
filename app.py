@@ -37,11 +37,9 @@ if uploaded_file is not None:
         df['datetime'] = pd.to_datetime(df['datetime'])
         df.set_index('datetime', inplace=True)
 
-        copy_df = df.copy()
-
         ########################## new section
         # Geospatial Visualization with Matplotlib Colormap
-        st.write("### Air Quality Map")
+        st.write("## Air Quality Map")
 
         map_df = df.copy()
         start_date, end_date = st.date_input("Select Date Range", [map_df.index.min(), map_df.index.max()])
@@ -105,6 +103,8 @@ if uploaded_file is not None:
         marker_cluster.add_to(m)
         folium_static(m)
         
+        st.write("## Filter Dataset")
+        copy_df = df.copy()
         if 'City' in df.columns:
             selected_city = st.selectbox("Select City", options=["All"] + list(df['City'].unique()))
             if selected_city != "All":
