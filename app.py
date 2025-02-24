@@ -137,14 +137,19 @@ if uploaded_file is not None:
 
     
         # Geospatial Visualization with Matplotlib Colormap
-        if 'latitude' in df.columns and 'longitude' in df.columns:
+        if ('latitude' and 'longitude') in df.columns:
             st.write("### Geospatial Visualization")
-            m = folium.Map(location=[df['latitude'].mean(), df['longitude'].mean()], zoom_start=10)
+
+            map_df = df.copy()
+            start_date, end_date = st.date_input("Select Date Range", [map_df.index.min(), map_df.index.max()])
+            map_df = map_df[map_df.between('2018-11-27','2019-01-15', inclusive=True)]
+
+            m = folium.Map(location=[map_df['latitude'].mean(), map_df['longitude'].mean()], zoom_start=10)
             
-            norm = plt.Normalize(vmin=df['PM2.5'].min(), vmax=df['PM2.5'].max())
+            norm = plt.Normalize(vmin=0, vmax=500)
             cmap = cm.get_cmap('YlOrRd')
             
-            for _, row in df.iterrows():
+            for _, row in map_df.iterrows():
                 color = cm.colors.rgb2hex(cmap(norm(row['PM2.5']))) if not pd.isna(row['PM2.5']) else "gray"
                 folium.CircleMarker(
                     [row['latitude'], row['longitude']],
