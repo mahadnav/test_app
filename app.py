@@ -83,7 +83,7 @@ if uploaded_file is not None:
 
         def kpi_card(title, value, unit, color):
             st.markdown(f"""
-                <div style="border: 2px solid white; border-radius: 10px; padding: 10px; text-align: center;">
+                <div style="border: 2px gray white; border-radius: 10px; padding: 10px; text-align: center;">
                     <p style="margin-bottom: 4px; font-size: 16px; color: gray;">{title}</p>
                     <h2 style="margin: 0; font-size: 32px; color: white;">{value} <span style="font-size: 16px; color: gray;">{unit}</span></h2>
                 </div>
