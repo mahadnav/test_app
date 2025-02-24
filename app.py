@@ -82,9 +82,16 @@ if uploaded_file is not None:
 
         ##################### new section
         st.write("#### PM2.5 Stripes")
-        copy_df['day_of_year'] = copy_df.index.dayofyear
-        copy_df['year'] = copy_df.index.year
-        df_grouped = copy_df.groupby(['year', 'day_of_year'])['PM2.5'].mean().reset_index()
+
+        stripes_df = df.copy()
+
+        selected_city = st.selectbox("Select City", options=["All"] + list(stripes_df['City'].unique()))
+        if selected_city != "All":
+            stripes_df = stripes_df[stripes_df['City'] == selected_city]
+        
+        stripes_df['day_of_year'] = stripes_df.index.dayofyear
+        stripes_df['year'] = stripes_df.index.year
+        df_grouped = stripes_df.groupby(['year', 'day_of_year'])['PM2.5'].mean().reset_index()
         pm2_5_matrix = df_grouped.pivot(index='year', columns='day_of_year', values='PM2.5')
         
         fig, ax = plt.subplots(figsize=(30, 30))
