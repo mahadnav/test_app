@@ -81,21 +81,23 @@ if uploaded_file is not None:
 
         col1, col2, col3 = st.columns(3)
 
+        def kpi_card(title, value, unit, color):
+            st.markdown(f"""
+                <div style="text-align: center;">
+                    <p style="margin-bottom: 4px; font-size: 16px; color: gray;">{title}</p>
+                    <h2 style="margin: 0; font-size: 32px; color: {color};">{value} <span style="font-size: 16px; color: gray;">{unit}</span></h2>
+                </div>
+            """, unsafe_allow_html=True)
+            st.plotly_chart(create_sparkline(df["PM2.5"], color), use_container_width=True)
+
         with col1:
-            st.markdown("**Min PM2.5**")
-            st.markdown(f"<h2 style='text-align: center;'>{round(min_pm25, 0)}" " ug/m3", unsafe_allow_html=True)
-            st.plotly_chart(create_sparkline(copy_df["PM2.5"], "green"), use_container_width=True)
+            kpi_card("Min PM2.5", min_pm25, "ug/m3", "green")
 
         with col2:
-            st.markdown("**Mean PM2.5**")
-            st.markdown(f"<h2 style='text-align: center;'>{round(mean_pm25, 0)}</h2> ug/m3</h2>", unsafe_allow_html=True)
-            st.plotly_chart(create_sparkline(copy_df["PM2.5"], "blue"), use_container_width=True)
+            kpi_card("Mean PM2.5", round(mean_pm25, 1), "ug/m3", "blue")
 
         with col3:
-            st.markdown("**Max PM2.5**")
-            st.markdown(f"<h2 style='text-align: center;'>{round(max_pm25, 0)} ug/m3</h2>", unsafe_allow_html=True)
-            st.plotly_chart(create_sparkline(copy_df["PM2.5"], "red"), use_container_width=True)
-        # st.write(copy_df[['PM2.5']].describe().loc[['min', 'max', 'mean']])
+            kpi_card("Max PM2.5", max_pm25, "ug/m3", "red")
         
         ##################### new section
         st.write("#### PM2.5 Time Series")
