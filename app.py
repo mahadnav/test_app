@@ -119,11 +119,11 @@ if uploaded_file is not None:
         st.write("#### Comparative Analysis")
         if df['City'].nunique() > 1:
             city_avg_pm25 = df.pivot_table(index = 'datetime', columns='City', values='PM2.5', aggfunc='mean')
-            selected_cities = st.multiselect("Select Cities", options=list(df['City'].unique()), default=None)
+            selected_cities = st.multiselect("Select Cities", options=list(df['City'].unique()), default=['Daily'])
             city_avg_pm25 = city_avg_pm25[selected_cities]
 
             # daily, monthly, annually
-            selected_trend = st.radio("Select Time Trend", options=['Daily', 'Monthly', 'Annually'], default=['Lahore'])
+            selected_trend = st.radio("Select Time Trend", options=['Daily', 'Monthly', 'Annually'])
 
             if selected_trend == 'Daily':
                 city_avg_pm25 = city_avg_pm25.resample('1D').mean().sort_index()
