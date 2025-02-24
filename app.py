@@ -103,7 +103,7 @@ if uploaded_file is not None:
         colors_array = np.vectorize(custom_cmap)(pm2_5_matrix)
         
         fig, ax = plt.subplots(figsize=(30, 40))
-        cax = ax.imshow(pm2_5_matrix, aspect='auto', cmap=colors_array, norm=norm)
+        cax = ax.imshow(pm2_5_matrix, aspect='auto', cmap=cmap, norm=norm)
         
         ax.set_yticks(np.arange(len(pm2_5_matrix.index)))
         ax.set_yticklabels(pm2_5_matrix.index, color='white', fontsize=24)
