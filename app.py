@@ -126,11 +126,11 @@ if uploaded_file is not None:
             selected_trend = st.radio("Select Time Trend", options=['Daily', 'Monthly', 'Annually'])
 
             if selected_trend == 'Daily':
-                city_avg_pm25 = city_avg_pm25.resample('d', label="left").mean().sort_index()
+                city_avg_pm25 = city_avg_pm25.resample('d', label="right").mean().sort_index()
             elif selected_trend == 'Monthly':
-                city_avg_pm25 = city_avg_pm25.resample('m', label="left").mean().sort_index()
+                city_avg_pm25 = city_avg_pm25.resample('m', label="right").mean().sort_index()
             else:
-                city_avg_pm25 = city_avg_pm25.resample('y', label="left").mean().sort_index()
+                city_avg_pm25 = city_avg_pm25.resample('y', label="right").mean().sort_index()
 
 
             city_trends = px.line(city_avg_pm25, x=city_avg_pm25.index, y=selected_cities)
