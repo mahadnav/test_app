@@ -85,7 +85,7 @@ if uploaded_file is not None:
             st.markdown(f"""
                 <div style="border: 2px gray; border-radius: 10px; padding: 10px; text-align: center;">
                     <p style="margin-bottom: 4px; font-size: 16px; color: gray;">{title}</p>
-                    <h2 style="margin: 0; font-size: 48px; color: white; text-align: center">{value} <span style="font-size: 16px; color: gray;">{unit}</span></h2>
+                    <h2 style="margin: 0; font-size: 48px; color: white; text-align: center">{value} <span style="font-size: 12px; color: gray;">{unit}</span></h2>
                 </div>
             """, unsafe_allow_html=True)
             st.plotly_chart(create_sparkline(df["PM2.5"], color), use_container_width=True)
