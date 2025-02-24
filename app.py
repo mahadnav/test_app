@@ -157,14 +157,7 @@ if uploaded_file is not None:
                         return colors[i]
                 return "gray"
             
-            marker_cluster = MarkerCluster(icon_create_function='''function(cluster) {
-                var maxPm25 = Math.max.apply(null, cluster.getAllChildMarkers().map(m => parseFloat(m.options.pm25)));
-                return L.divIcon({
-                    html: '<div style="background-color: white; border-radius: 10%; padding: 5px;">' + maxPm25.toFixed(1) + '</div>',
-                    className: 'marker-cluster',
-                    iconSize: L.point(40, 40)
-                });
-            }''').add_to(m)
+            marker_cluster = MarkerCluster()
             
             for _, row in df.iterrows():
                 color = get_pm25_color(row['PM2.5']) if not pd.isna(row['PM2.5']) else "gray"
