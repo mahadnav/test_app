@@ -83,12 +83,12 @@ if uploaded_file is not None:
 
         with col1:
             st.markdown("**Min PM2.5**")
-            st.markdown(f"<h2 style='text-align: center;'>{round(min_pm25, 0)} ug/m3</h2>", unsafe_allow_html=True)
+            st.markdown(f"<h2 style='text-align: center;'>{round(min_pm25, 0)}" " ug/m3", unsafe_allow_html=True)
             st.plotly_chart(create_sparkline(copy_df["PM2.5"], "green"), use_container_width=True)
 
         with col2:
             st.markdown("**Mean PM2.5**")
-            st.markdown(f"<h2 style='text-align: center;'>{round(mean_pm25, 0)} ug/m3</h2>", unsafe_allow_html=True)
+            st.markdown(f"<h2 style='text-align: center;'>{round(mean_pm25, 0)}</h2> ug/m3</h2>", unsafe_allow_html=True)
             st.plotly_chart(create_sparkline(copy_df["PM2.5"], "blue"), use_container_width=True)
 
         with col3:
