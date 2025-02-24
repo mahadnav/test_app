@@ -93,14 +93,7 @@ if uploaded_file is not None:
         pm2_5_matrix = df_grouped.pivot(index='year', columns='day_of_year', values='PM2.5')
 
         cmap = cm.coolwarm
-        norm = colors.Normalize(vmin=0, vmax=150)
-        
-        def custom_cmap(value):
-            if value <= 32.5:
-                return (0, 0, 1, value / 50)  # Dark to light blue gradient
-            return cmap(norm(value))
-        
-        colors_array = np.vectorize(custom_cmap)(pm2_5_matrix)
+        norm = colors.Normalize(vmin=0, vmax=200)
         
         fig, ax = plt.subplots(figsize=(30, 40))
         cax = ax.imshow(pm2_5_matrix, aspect='auto', cmap=cmap, norm=norm)
