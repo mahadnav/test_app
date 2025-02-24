@@ -96,7 +96,7 @@ if uploaded_file is not None:
         norm = colors.Normalize(vmin=0, vmax=250)
         
         def custom_cmap(value):
-            if value <= 50:
+            if value <= 32.5:
                 return (0, 0, 1, value / 50)  # Dark to light blue gradient
             return cmap(norm(value))
         
