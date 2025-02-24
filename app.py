@@ -184,7 +184,7 @@ if uploaded_file is not None:
         cmap = cm.coolwarm
         norm = colors.Normalize(vmin=0, vmax=200)
         
-        fig, ax = plt.subplots(figsize=(30, stripes_df.index.year.nunique()*6))
+        fig, ax = plt.subplots(figsize=(30, 30))
         cax = ax.imshow(pm2_5_matrix, aspect='auto', cmap=cmap, norm=norm)
         
         ax.set_yticks(np.arange(len(pm2_5_matrix.index)))
