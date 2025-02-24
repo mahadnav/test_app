@@ -39,13 +39,8 @@ if uploaded_file is not None:
 
         copy_df = df.copy()
 
-        st.write("### Data Preview")
-        st.dataframe(copy_df.head())
-
-        # selected_years = st.multiselect("Select Year(s)", options=list(df.index.year.unique()), default=list(df.index.year.unique()))
-        # df = df[df.index.year.isin(selected_years)]
-        # if selected_years != "All":
-        #     df = df[df.index.year.isin(selected_years)]
+        # st.write("### Data Preview")
+        # st.dataframe(copy_df.head())
         
         if 'City' in df.columns:
             selected_city = st.selectbox("Select City", options=["All"] + list(df['City'].unique()))
