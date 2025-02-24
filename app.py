@@ -134,7 +134,7 @@ if uploaded_file is not None:
             else:
                 city_avg_pm25 = city_avg_pm25.resample('ys').mean().sort_index()
                 city_avg_pm25.index = city_avg_pm25.index.year  
-                city_trends = px.bar(city_avg_pm25, x=city_avg_pm25.index, y=selected_cities, barmode="group")
+                city_trends = px.bar(city_avg_pm25, x=city_avg_pm25.index, y=selected_cities, barmode="group", labels=None)
 
             st.plotly_chart(city_trends)
         
