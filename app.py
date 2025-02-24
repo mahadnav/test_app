@@ -148,7 +148,7 @@ if uploaded_file is not None:
                 color = cm.colors.rgb2hex(cmap(norm(row['PM2.5']))) if not pd.isna(row['PM2.5']) else "gray"
                 folium.CircleMarker(
                     [row['latitude'], row['longitude']],
-                    radius=5,
+                    radius=10,
                     color=color,
                     fill=True,
                     fill_opacity=0.7
