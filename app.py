@@ -39,6 +39,7 @@ if uploaded_file is not None:
 
         copy_df = df.copy()
 
+        ########################## new section
         # Geospatial Visualization with Matplotlib Colormap
         st.write("### Air Quality Map")
 
