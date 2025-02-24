@@ -12,14 +12,11 @@ from streamlit_folium import folium_static
 st.title("PM2.5 Data Analysis & Visualization")
 
 # Upload File
-uploaded_file = st.file_uploader("Upload your dataset", type=["csv", "xlsx"])
+uploaded_file = st.file_uploader("Upload your dataset", type=["csv"])
 
-df = None
 if uploaded_file is not None:
     if uploaded_file.name.endswith("csv"):
         df = pd.read_csv(uploaded_file)
-    elif uploaded_file.name.endswith("xlsx"):
-        df = pd.read_excel(uploaded_file)
     
     if df is not None:
         col_name = df.filter(like='PM2.5').columns[0]
@@ -38,6 +35,8 @@ if uploaded_file is not None:
         df['datetime'] = pd.to_datetime(df['datetime'])
         df.set_index('datetime', inplace=True)
 
+        copy_df = df.copy()
+
         st.write("### Data Preview")
         st.dataframe(df.head())
 
@@ -49,23 +48,23 @@ if uploaded_file is not None:
         if 'City' in df.columns:
             selected_city = st.selectbox("Select City", options=["All"] + list(df['City'].unique()))
             if selected_city != "All":
-                df = df[df['City'] == selected_city]
+                copy_df = copy_df[copy_df['City'] == selected_city]
         
         if 'Name' in df.columns:
             selected_name = st.selectbox("Select Monitor", options=["All"] + list(df['Name'].unique()))
             if selected_name != "All":
-                df = df[df['Name'] == selected_name]
+                copy_df = copy_df[copy_df['Name'] == selected_name]
 
-        df['PM2.5'] = df['PM2.5'].resample('1h').mean()
+        copy_df['PM2.5'] = copy_df['PM2.5'].resample('1h').mean()
         
         # Date Filter options
-        start_date, end_date = st.date_input("Select Date Range", [df.index.min(), df.index.max()])
-        df = df[(df.index >= pd.Timestamp(start_date)) & (df.index <= pd.Timestamp(end_date))]
-        df.sort_index(inplace=True)
+        start_date, end_date = st.date_input("Select Date Range", [copy_df.index.min(), copy_df.index.max()])
+        copy_df = copy_df[(copy_df.index >= pd.Timestamp(start_date)) & (copy_df.index <= pd.Timestamp(end_date))]
+        copy_df.sort_index(inplace=True)
 
         ##################### new section
         st.write("#### \nSummary Statistics")
-        st.write(df[['PM2.5']].describe().loc[['min', 'max', 'mean']])
+        st.write(copy_df[['PM2.5']].describe().loc[['min', 'max', 'mean']])
         
         ##################### new section
         st.write("#### PM2.5 Time Series")
@@ -73,7 +72,7 @@ if uploaded_file is not None:
         # ma_days = st.number_input("Enter Moving Average Window (Days)", min_value=1, max_value=30, value=7)
         # df['PM2.5_MA'] = df['PM2.5'].rolling(window=ma_days).mean()
         
-        scatter = go.Scatter(x=df.index, y=df['PM2.5'], mode='markers')
+        scatter = go.Scatter(x=copy_df.index, y=copy_df['PM2.5'], mode='markers')
         # line = go.Scatter(x=df.index, y=df['PM2.5_MA'])
         
         fig = go.Figure()
@@ -83,9 +82,9 @@ if uploaded_file is not None:
 
         ##################### new section
         st.write("#### PM2.5 Stripes")
-        df['day_of_year'] = df.index.dayofyear
-        df['year'] = df.index.year
-        df_grouped = df.groupby(['year', 'day_of_year'])['PM2.5'].mean().reset_index()
+        copy_df['day_of_year'] = copy_df.index.dayofyear
+        copy_df['year'] = copy_df.index.year
+        df_grouped = copy_df.groupby(['year', 'day_of_year'])['PM2.5'].mean().reset_index()
         pm2_5_matrix = df_grouped.pivot(index='year', columns='day_of_year', values='PM2.5')
         
         fig, ax = plt.subplots(figsize=(30, 30))
