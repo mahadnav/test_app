@@ -158,16 +158,23 @@ if uploaded_file is not None:
                         return colors[i]
                 return "gray"
             
-            icon_create_function='''
-            function(cluster) {
-                var maxPm25 = Math.max.apply(null, cluster.getAllChildMarkers().map(m => parseFloat(m.options.pm25)));
-                return L.divIcon({
-                    html: '<b>' + avg + '</b>',
-                    className: 'marker-cluster marker-cluster-small',
-                    iconSize: new L.Point(20, 20)
-                });
-            }
-            '''
+            icon_create_function = '''
+                function(cluster) {
+                    var markers = cluster.getAllChildMarkers();
+                    var maxPm25 = -Infinity;
+                    for (var i = 0; i < markers.length; i++) {
+                        var pm25 = parseFloat(markers[i].options.pm25);
+                        if (!isNaN(pm25) && pm25 > maxPm25) {
+                            maxPm25 = pm25;
+                        }
+                    }
+                    return L.divIcon({
+                        html: '<b>' + maxPm25.toFixed(1) + '</b>',
+                        className: 'marker-cluster marker-cluster-small',
+                        iconSize: new L.Point(40, 40)
+                    });
+                }
+                '''
             
             marker_cluster = MarkerCluster(icon_create_function=icon_create_function)
             
