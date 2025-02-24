@@ -84,6 +84,7 @@ if uploaded_file is not None:
         st.write("#### PM2.5 Stripes")
         stripes_df = df.copy()
         selected_city = st.selectbox("Select City", options=list(stripes_df['City'].unique()))   
+        stripes_df = stripes_df[stripes_df['City'] == selected_city]
         stripes_df['day_of_year'] = stripes_df.index.dayofyear
         stripes_df['year'] = stripes_df.index.year
         df_grouped = stripes_df.groupby(['year', 'day_of_year'])['PM2.5'].mean().reset_index()
