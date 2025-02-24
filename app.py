@@ -88,7 +88,7 @@ if uploaded_file is not None:
                     <h2 style="margin: 0; font-size: 48px; color: white; text-align: center">{value} <span style="font-size: 12px; color: gray;">{unit}</span></h2>
                 </div>
             """, unsafe_allow_html=True)
-            st.plotly_chart(create_sparkline(df["PM2.5"], color), use_container_width=True)
+            st.plotly_chart(create_sparkline(df["PM2.5"].resample('D').mean(), color), use_container_width=True)
 
         with col1:
             kpi_card("Min PM2.5", min_pm25, "ug/m3", "green")
