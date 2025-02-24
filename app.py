@@ -8,6 +8,7 @@ from folium.plugins import MarkerCluster
 import xarray as xr
 import matplotlib.pyplot as plt
 from matplotlib import cm
+import matplotlib.colors as mcolors
 from streamlit_folium import folium_static
 
 # Streamlit App Title
@@ -92,28 +93,35 @@ if uploaded_file is not None:
         df_grouped = stripes_df.groupby(['year', 'day_of_year'])['PM2.5'].mean().reset_index()
         pm2_5_matrix = df_grouped.pivot(index='year', columns='day_of_year', values='PM2.5')
 
-        # Define colormap
-        norm = plt.Normalize(vmin=0, vmax=250)  # Normalize PM2.5 values
-        cmap = plt.cm.get_cmap("coolwarm")  # Blue to Red colormap
+        # Define colormap transition at PM2.5 = 50
+        cmap = mcolors.LinearSegmentedColormap.from_list("custom_cmap", 
+            ["blue", "blue", "red", "darkred"], N=256)
 
-        # Apply gradient: blue for PM2.5 ≤ 50, red gradient above 50
-        colors = [cmap(norm(val)) if val > 50 else (0, 0, 1, 1) for val in pm2_5_matrix['PM2.5']]
-        
-        fig, ax = plt.subplots(figsize=(30, 50))
-        ax.imshow([colors], aspect='auto', extent=[0, len(pm2_5_matrix), 0, 1])
-        
-        # Customizing the appearance
+        norm = mcolors.Normalize(vmin=0, vmax=250)  # Normalize PM2.5 values
+
+        # Create figure
+        fig, ax = plt.subplots(figsize=(15, 6))
+        cax = ax.imshow(pm2_5_matrix, aspect='auto', cmap=cmap, norm=norm)
+
+        # Format y-axis with years
         ax.set_yticks(np.arange(len(pm2_5_matrix.index)))
-        ax.set_yticklabels(pm2_5_matrix.index, color='white', fontsize=24)
-        ax.set_xticks([]) 
+        ax.set_yticklabels(pm2_5_matrix.index, color='white', fontsize=12)
+
+        # Remove x-axis ticks
+        ax.set_xticks([])
         ax.set_xlabel("")
-        # ax.set_ylabel("Year", color='white')
-        fig.patch.set_alpha(0)  # Transparent background
+        ax.set_ylabel("Year", color='white')
+
+        # Transparent figure background
+        fig.patch.set_alpha(0)
         ax.set_facecolor("none")
 
-        # Adding space between plots for each year
-        fig.subplots_adjust(bottom=0.5, hspace=0.5)
-        ax. set_frame_on(False)
+        # Add colorbar
+        cbar = fig.colorbar(cax, orientation='horizontal', pad=0.1)
+        cbar.set_label("PM2.5 Levels", color='white')
+        cbar.ax.xaxis.set_tick_params(color='white')
+        plt.setp(cbar.ax.xaxis.get_ticklabels(), color='white')
+
         st.pyplot(fig)
 
         ##################### new section
