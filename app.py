@@ -142,7 +142,7 @@ if uploaded_file is not None:
 
             map_df = df.copy()
             start_date, end_date = st.date_input("Select Date Range", [map_df.index.min(), map_df.index.max()])
-            map_df = map_df[map_df.between('2018-11-27','2019-01-15', inclusive=True)]
+            map_df = map_df[map_df.between(start_date,end_date, inclusive=True)]
 
             m = folium.Map(location=[map_df['latitude'].mean(), map_df['longitude'].mean()], zoom_start=10)
             
