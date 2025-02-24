@@ -91,12 +91,16 @@ if uploaded_file is not None:
         stripes_df['year'] = stripes_df.index.year
         df_grouped = stripes_df.groupby(['year', 'day_of_year'])['PM2.5'].mean().reset_index()
         pm2_5_matrix = df_grouped.pivot(index='year', columns='day_of_year', values='PM2.5')
+
+        # Define colormap
+        norm = plt.Normalize(vmin=0, vmax=250)  # Normalize PM2.5 values
+        cmap = plt.cm.get_cmap("coolwarm")  # Blue to Red colormap
+
+        # Apply gradient: blue for PM2.5 ≤ 50, red gradient above 50
+        colors = [cmap(norm(val)) if val > 50 else (0, 0, 1, 1) for val in pm2_5_matrix['PM2.5']]
         
         fig, ax = plt.subplots(figsize=(30, 50))
-        im = ax.imshow(pm2_5_matrix, aspect='auto', 
-                       cmap='RdBu_r', 
-                       interpolation='nearest', 
-                       vmin=0, vmax=250)
+        ax.imshow([colors], aspect='auto', extent=[0, len(pm2_5_matrix), 0, 1])
         
         # Customizing the appearance
         ax.set_yticks(np.arange(len(pm2_5_matrix.index)))
