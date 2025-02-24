@@ -4,6 +4,7 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 import folium
+from folium.plugins import MarkerCluster
 import xarray as xr
 import matplotlib.pyplot as plt
 from matplotlib import cm
@@ -145,8 +146,6 @@ if uploaded_file is not None:
             map_df = map_df.loc[start_date:end_date]
 
             m = folium.Map(location=[map_df['latitude'].mean(), map_df['longitude'].mean()], zoom_start=10)
-            
-            import streamlit as st
 
             # US EPA PM2.5 Breakpoints and Colors
             pm25_breakpoints = [0, 12, 35.4, 55.4, 150.4, 250.4, 500.4]
@@ -158,18 +157,22 @@ if uploaded_file is not None:
                         return colors[i]
                 return "gray"
             
+            marker_cluster = MarkerCluster().add_to(m)
+            
             for _, row in map_df.iterrows():
                 color = get_pm25_color(row['PM2.5']) if not pd.isna(row['PM2.5']) else "gray"
-                marker = folium.CircleMarker(
+                folium.CircleMarker(
                     [row['latitude'], row['longitude']],
-                    radius=15,
+                    radius=5,
                     color=color,
                     fill=True,
-                    fill_opacity=0.7,
-                )
-
-                popup_text = f"{round(row['PM2.5'])} µg/m³"
-                folium.Popup(popup_text).add_to(marker)
-                marker.add_to(m)
+                    fill_opacity=0.7
+                ).add_to(marker_cluster)
+                
+                text_html = f'''<div style="color: black; font-size: 12px; font-weight: bold; text-align: center;">{row['PM2.5']:.1f}</div>'''
+                folium.Marker(
+                    [row['latitude'], row['longitude']],
+                    icon=folium.DivIcon(html=text_html)
+                ).add_to(marker_cluster)
             
             folium_static(m)
