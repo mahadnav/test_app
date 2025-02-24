@@ -65,7 +65,7 @@ if uploaded_file is not None:
         copy_df.sort_index(inplace=True)
 
         ##################### new section
-        st.write("#### \nSummary Statistics")
+        st.markdown("### Air Quality KPIs")
 
         # Calculate KPIs
         min_pm25 = copy_df["PM2.5"].min()
@@ -75,28 +75,25 @@ if uploaded_file is not None:
         # Create small trend graphs using Plotly
         def create_sparkline(data, color):
             fig = go.Figure()
-            fig.add_trace(go.Scatter(y=data, mode="lines", line=dict(color=color, width=2), fill="tozeroy"))
+            fig.add_trace(go.Scatter(y=data, mode="lines", line=dict(color=color, width=1)))
             fig.update_layout(margin=dict(l=0, r=0, t=0, b=0), xaxis=dict(visible=False), yaxis=dict(visible=False), height=50)
             return fig
-
-        # Streamlit Layout
-        st.markdown("### Air Quality KPIs")
 
         col1, col2, col3 = st.columns(3)
 
         with col1:
             st.markdown("**Min PM2.5**")
-            st.markdown(f"<h2 style='text-align: center;'>{min_pm25} ppm</h2>", unsafe_allow_html=True)
+            st.markdown(f"<h2 style='text-align: center;'>{round(min_pm25, 0)} ug/m3</h2>", unsafe_allow_html=True)
             st.plotly_chart(create_sparkline(copy_df["PM2.5"], "green"), use_container_width=True)
 
         with col2:
             st.markdown("**Mean PM2.5**")
-            st.markdown(f"<h2 style='text-align: center;'>{round(mean_pm25, 1)} ppm</h2>", unsafe_allow_html=True)
+            st.markdown(f"<h2 style='text-align: center;'>{round(mean_pm25, 0)} ug/m3</h2>", unsafe_allow_html=True)
             st.plotly_chart(create_sparkline(copy_df["PM2.5"], "blue"), use_container_width=True)
 
         with col3:
             st.markdown("**Max PM2.5**")
-            st.markdown(f"<h2 style='text-align: center;'>{max_pm25} ppm</h2>", unsafe_allow_html=True)
+            st.markdown(f"<h2 style='text-align: center;'>{round(max_pm25, 0)} ug/m3</h2>", unsafe_allow_html=True)
             st.plotly_chart(create_sparkline(copy_df["PM2.5"], "red"), use_container_width=True)
         # st.write(copy_df[['PM2.5']].describe().loc[['min', 'max', 'mean']])
         
