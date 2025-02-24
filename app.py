@@ -142,13 +142,14 @@ if uploaded_file is not None:
 
             map_df = df.copy()
             start_date, end_date = st.date_input("Select Date Range", [map_df.index.min(), map_df.index.max()])
-            map_df = map_df[(map_df.index >= start_date) & (map_df.index <= end_date)]
+            map_df = map_df.loc[(map_df.index >= start_date) & (map_df.index <= end_date)]
 
             m = folium.Map(location=[map_df['latitude'].mean(), map_df['longitude'].mean()], zoom_start=10)
             
             norm = plt.Normalize(vmin=0, vmax=500)
             cmap = cm.get_cmap('YlOrRd')
             
+            map_df = pd.DataFrame(map_df.groupby(['Name', 'longitude', 'latitude'])['PM2.5'].mean()).reset_index()
             for _, row in map_df.iterrows():
                 color = cm.colors.rgb2hex(cmap(norm(row['PM2.5']))) if not pd.isna(row['PM2.5']) else "gray"
                 folium.CircleMarker(
