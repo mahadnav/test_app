@@ -6,6 +6,7 @@ import plotly.graph_objects as go
 import folium
 import xarray as xr
 import matplotlib.pyplot as plt
+from matplotlib import cm
 from streamlit_folium import folium_static
 
 # Streamlit App Title
@@ -135,14 +136,22 @@ if uploaded_file is not None:
             st.write("###### Need more than 1 city for comparison!")
 
     
-        # # Geospatial Visualization (if lat/lon are present)
-        # if 'latitude' in df.columns and 'longitude' in df.columns:
-        #     st.write("### Geospatial Visualization")
-        #     m = folium.Map(location=[df['latitude'].mean(), df['longitude'].mean()], zoom_start=10)
-        #     for _, row in df.iterrows():
-        #         folium.CircleMarker([row['latitude'], row['longitude']],
-        #                             radius=5,
-        #                             color='red',
-        #                             fill=True,
-        #                             fill_opacity=0.7).add_to(m)
-        #     folium_static(m)
+        # Geospatial Visualization with Matplotlib Colormap
+        if 'latitude' in df.columns and 'longitude' in df.columns:
+            st.write("### Geospatial Visualization")
+            m = folium.Map(location=[df['latitude'].mean(), df['longitude'].mean()], zoom_start=10)
+            
+            norm = plt.Normalize(vmin=df['PM2.5'].min(), vmax=df['PM2.5'].max())
+            cmap = cm.get_cmap('YlOrRd')
+            
+            for _, row in df.iterrows():
+                color = cm.colors.rgb2hex(cmap(norm(row['PM2.5']))) if not pd.isna(row['PM2.5']) else "gray"
+                folium.CircleMarker(
+                    [row['latitude'], row['longitude']],
+                    radius=5,
+                    color=color,
+                    fill=True,
+                    fill_opacity=0.7
+                ).add_to(m)
+            
+            folium_static(m)
