@@ -144,6 +144,7 @@ if uploaded_file is not None:
             map_df = df.copy()
             start_date, end_date = st.date_input("Select Date Range", [map_df.index.min(), map_df.index.max()])
             map_df = map_df.loc[start_date:end_date]
+            map_df = pd.DataFrame(map_df.groupby(['Name', 'longitude', 'latitude'])['PM2.5'].mean()).reset_index()
 
             m = folium.Map(location=[map_df['latitude'].mean(), map_df['longitude'].mean()], zoom_start=10)
 
@@ -157,20 +158,19 @@ if uploaded_file is not None:
                         return colors[i]
                 return "gray"
             
-            marker_cluster = MarkerCluster()
+            marker_cluster = MarkerCluster().add_to(m)
             
-            for _, row in df.iterrows():
+            for _, row in map_df.iterrows():
                 color = get_pm25_color(row['PM2.5']) if not pd.isna(row['PM2.5']) else "gray"
                 folium.CircleMarker(
                     [row['latitude'], row['longitude']],
                     radius=5,
                     color=color,
                     fill=True,
-                    fill_opacity=0.7,
-                    pm25=row['PM2.5']
+                    fill_opacity=0.7
                 ).add_to(marker_cluster)
                 
-                text_html = f'''<div style="color: black; font-size: 12px; font-weight: bold; text-align: center;">{row['PM2.5']:.1f}</div>'''
+                text_html = f'''<div style="color: white; font-size: 12px; font-weight: bold; text-align: center;">{round(row['PM2.5'])}</div>'''
                 folium.Marker(
                     [row['latitude'], row['longitude']],
                     icon=folium.DivIcon(html=text_html)
