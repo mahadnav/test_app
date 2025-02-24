@@ -127,13 +127,16 @@ if uploaded_file is not None:
 
             if selected_trend == 'Daily':
                 city_avg_pm25 = city_avg_pm25.resample('ds').mean().sort_index()
+                city_trends = px.line(city_avg_pm25, x=city_avg_pm25.index, y=selected_cities)
             elif selected_trend == 'Monthly':
                 city_avg_pm25 = city_avg_pm25.resample('ms').mean().sort_index()
+                city_trends = px.line(city_avg_pm25, x=city_avg_pm25.index, y=selected_cities)
             else:
                 city_avg_pm25 = city_avg_pm25.resample('ys').mean().sort_index()
+                city_trends = px.bar(city_avg_pm25, x=city_avg_pm25.index, y=selected_cities)
 
 
-            city_trends = px.line(city_avg_pm25, x=city_avg_pm25.index, y=selected_cities)
+            
             st.plotly_chart(city_trends)
         
         else:
