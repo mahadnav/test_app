@@ -91,13 +91,13 @@ if uploaded_file is not None:
             st.plotly_chart(create_sparkline(df["PM2.5"], color), use_container_width=True)
 
         with col1:
-            kpi_card("Min PM2.5", min_pm25, "ug/m3", "green")
+            kpi_card("Min PM2.5", round(min_pm25, 0), "ug/m3", "green")
 
         with col2:
-            kpi_card("Mean PM2.5", round(mean_pm25, 1), "ug/m3", "blue")
+            kpi_card("Mean PM2.5", round(mean_pm25, 0), "ug/m3", "blue")
 
         with col3:
-            kpi_card("Max PM2.5", max_pm25, "ug/m3", "red")
+            kpi_card("Max PM2.5", round(max_pm25, 0), "ug/m3", "red")
         
         ##################### new section
         st.write("#### PM2.5 Time Series")
