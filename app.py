@@ -133,7 +133,7 @@ if uploaded_file is not None:
                 city_trends = px.line(city_avg_pm25, x=city_avg_pm25.index, y=selected_cities)
             else:
                 city_avg_pm25 = city_avg_pm25.resample('ys').mean().sort_index()
-                city_trends = px.bar(city_avg_pm25, x=city_avg_pm25.index, y=selected_cities)
+                city_trends = px.bar(city_avg_pm25, x=city_avg_pm25.index, y=selected_cities, barmode='absolute')
 
 
             
