@@ -123,7 +123,7 @@ if uploaded_file is not None:
             city_avg_pm25 = city_avg_pm25[selected_cities]
 
             # daily, monthly, annually
-            selected_trend = st.radio("Select Time Trend", options=['Daily', 'Monthly', 'Annually'])
+            selected_trend = st.radio("Select Time Trend", options=['Daily', 'Monthly', 'Annually'], default=['Lahore'])
 
             if selected_trend == 'Daily':
                 city_avg_pm25 = city_avg_pm25.resample('1D').mean().sort_index()
