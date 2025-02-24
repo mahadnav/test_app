@@ -106,7 +106,7 @@ if uploaded_file is not None:
         cax = ax.imshow(pm2_5_matrix, aspect='auto', cmap=cmap, norm=norm)
         
         ax.set_yticks(np.arange(len(pm2_5_matrix.index)))
-        ax.set_yticklabels(pm2_5_matrix.index, color='white', fontsize=12)
+        ax.set_yticklabels(pm2_5_matrix.index, color='white', fontsize=24)
         ax.set_xticks([])
         ax.set_xlabel("")
         ax.set_ylabel("Year", color='white')
@@ -114,10 +114,10 @@ if uploaded_file is not None:
         fig.patch.set_alpha(0)
         ax.set_facecolor("none")
         
-        cbar = fig.colorbar(cax, orientation='horizontal', pad=0.1)
-        cbar.set_label("PM2.5 Levels", color='white')
-        cbar.ax.xaxis.set_tick_params(color='white')
-        plt.setp(cbar.ax.xaxis.get_ticklabels(), color='white')
+        # cbar = fig.colorbar(cax, orientation='horizontal', pad=0.1)
+        # cbar.set_label("PM2.5 Levels", color='white')
+        # cbar.ax.xaxis.set_tick_params(color='white')
+        # plt.setp(cbar.ax.xaxis.get_ticklabels(), color='white')
         
         st.pyplot(fig)
 
