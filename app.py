@@ -90,7 +90,7 @@ if uploaded_file is not None:
         df_grouped = stripes_df.groupby(['year', 'day_of_year'])['PM2.5'].mean().reset_index()
         pm2_5_matrix = df_grouped.pivot(index='year', columns='day_of_year', values='PM2.5')
         
-        fig, ax = plt.subplots(figsize=(30, 30))
+        fig, ax = plt.subplots(figsize=(30, 50))
         im = ax.imshow(pm2_5_matrix, aspect='auto', 
                        cmap='RdBu_r', 
                        interpolation='nearest', 
