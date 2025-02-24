@@ -38,7 +38,7 @@ if uploaded_file is not None:
         copy_df = df.copy()
 
         st.write("### Data Preview")
-        st.dataframe(df.head())
+        st.dataframe(copy_df.head())
 
         # selected_years = st.multiselect("Select Year(s)", options=list(df.index.year.unique()), default=list(df.index.year.unique()))
         # df = df[df.index.year.isin(selected_years)]
