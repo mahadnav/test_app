@@ -189,7 +189,7 @@ if uploaded_file is not None:
                     fill=True,
                     fill_opacity=0.7
                 )
-                marker.options["pm25"] = round(row['PM2.5'])
+                marker.options["pm25"] = round(row['PM2.5'], 0)
                 marker.add_to(marker_cluster)
                 
                 text_html = f'''<div style="color: white; font-size: 12px; font-weight: bold; text-align: center;">{round(row['PM2.5'])}</div>'''
