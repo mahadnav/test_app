@@ -158,25 +158,28 @@ if uploaded_file is not None:
                         return colors[i]
                 return "gray"
             
-            icon_create_function = '''
+            icon_create_function='''
             function(cluster) {
-                var markers = cluster.getAllChildMarkers();
-                var maxPm25 = -Infinity;
+                var maxPm25 = Math.max.apply(null, cluster.getAllChildMarkers().map(m => parseFloat(m.options.pm25) || -Infinity));
 
-                for (var i = 0; i < markers.length; i++) {
-                    var pm25 = parseFloat(markers[i].options.pm25) || -Infinity;
-                    if (pm25 > maxPm25) {
-                        maxPm25 = pm25;
-                    }
+                function getColor(value) {
+                    if (value <= 12) return "#00E400";   // Good (Green)
+                    if (value <= 35.4) return "#FFFF00";  // Moderate (Yellow)
+                    if (value <= 55.4) return "#FF7E00";  // Unhealthy for Sensitive Groups (Orange)
+                    if (value <= 150.4) return "#FF0000"; // Unhealthy (Red)
+                    if (value <= 250.4) return "#8F3F97"; // Very Unhealthy (Purple)
+                    return "#7E0023";                    // Hazardous (Maroon)
                 }
 
+                var bgColor = getColor(maxPm25);
+
                 return L.divIcon({
-                    html: '<div style="border-radius: 50%; padding: 1px; text-align: center;"><b>' + maxPm25.toFixed(0) + '</b></div>',
-                    className: 'marker-cluster marker-cluster-small',
-                    iconSize: new L.Point(40, 40)
+                    html: '<div style="background-color:' + bgColor + '; color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold;">' + maxPm25.toFixed(1) + '</div>',
+                    className: 'marker-cluster',
+                    iconSize: L.point(40, 40)
                 });
             }
-            '''
+        '''
             
             marker_cluster = MarkerCluster(icon_create_function=icon_create_function)
             
