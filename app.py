@@ -160,12 +160,16 @@ if uploaded_file is not None:
             
             for _, row in map_df.iterrows():
                 color = get_pm25_color(row['PM2.5']) if not pd.isna(row['PM2.5']) else "gray"
-                folium.CircleMarker(
+                marker = folium.CircleMarker(
                     [row['latitude'], row['longitude']],
                     radius=15,
                     color=color,
                     fill=True,
-                    fill_opacity=0.7
-                ).add_to(m)
+                    fill_opacity=0.7,
+                )
+
+                popup_text = f"{round(row['PM2.5'])}"
+                folium.Popup(popup_text).add_to(marker)
+                marker.add_to(m)
             
             folium_static(m)
