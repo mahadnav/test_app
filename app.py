@@ -171,7 +171,7 @@ if uploaded_file is not None:
                 }
 
                 return L.divIcon({
-                    html: '<div style="background-color: None; text-color: white; border-radius: 50%; padding: 1px; text-align: center;"><b>' + maxPm25.toFixed(0) + '</b></div>',
+                    html: '<div style="border-radius: 50%; padding: 1px; text-align: center;"><b>' + maxPm25.toFixed(0) + '</b></div>',
                     className: 'marker-cluster marker-cluster-small',
                     iconSize: new L.Point(40, 40)
                 });
