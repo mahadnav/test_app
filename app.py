@@ -68,7 +68,7 @@ if uploaded_file is not None:
         
         ##################### new section
         st.write("#### PM2.5 Time Series")
-        # Time-Series Plot
+
         # ma_days = st.number_input("Enter Moving Average Window (Days)", min_value=1, max_value=30, value=7)
         # df['PM2.5_MA'] = df['PM2.5'].rolling(window=ma_days).mean()
         
@@ -82,13 +82,8 @@ if uploaded_file is not None:
 
         ##################### new section
         st.write("#### PM2.5 Stripes")
-
         stripes_df = df.copy()
-
-        selected_city = st.selectbox("Select City", options=["All"] + list(stripes_df['City'].unique()))
-        if selected_city != "All":
-            stripes_df = stripes_df[stripes_df['City'] == selected_city]
-        
+        selected_city = st.selectbox("Select City", options=list(stripes_df['City'].unique()))   
         stripes_df['day_of_year'] = stripes_df.index.dayofyear
         stripes_df['year'] = stripes_df.index.year
         df_grouped = stripes_df.groupby(['year', 'day_of_year'])['PM2.5'].mean().reset_index()
