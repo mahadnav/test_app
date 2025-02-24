@@ -146,15 +146,23 @@ if uploaded_file is not None:
 
             m = folium.Map(location=[map_df['latitude'].mean(), map_df['longitude'].mean()], zoom_start=10)
             
-            norm = plt.Normalize(vmin=0, vmax=500)
-            cmap = cm.get_cmap('YlOrRd')
+            import streamlit as st
+
+            # US EPA PM2.5 Breakpoints and Colors
+            pm25_breakpoints = [0, 12, 35.4, 55.4, 150.4, 250.4, 500.4]
+            colors = ["#00E400", "#FFFF00", "#FF7E00", "#FF0000", "#8F3F97", "#7E0023"]
+
+            def get_pm25_color(value):
+                for i in range(len(pm25_breakpoints) - 1):
+                    if pm25_breakpoints[i] <= value <= pm25_breakpoints[i + 1]:
+                        return colors[i]
+                return "gray"
             
-            map_df = pd.DataFrame(map_df.groupby(['Name', 'longitude', 'latitude'])['PM2.5'].mean()).reset_index()
             for _, row in map_df.iterrows():
-                color = cm.colors.rgb2hex(cmap(norm(row['PM2.5']))) if not pd.isna(row['PM2.5']) else "gray"
+                color = get_pm25_color(row['PM2.5']) if not pd.isna(row['PM2.5']) else "gray"
                 folium.CircleMarker(
                     [row['latitude'], row['longitude']],
-                    radius=10,
+                    radius=15,
                     color=color,
                     fill=True,
                     fill_opacity=0.7
