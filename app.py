@@ -168,7 +168,7 @@ if uploaded_file is not None:
                     fill_opacity=0.7,
                 )
 
-                popup_text = f"{round(row['PM2.5'])}"
+                popup_text = f"{round(row['PM2.5'])} $\mu$g/m$^3$"
                 folium.Popup(popup_text).add_to(marker)
                 marker.add_to(m)
             
