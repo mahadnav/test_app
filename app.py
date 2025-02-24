@@ -7,8 +7,7 @@ import folium
 from folium.plugins import MarkerCluster
 import xarray as xr
 import matplotlib.pyplot as plt
-from matplotlib import cm
-import matplotlib.colors as mcolors
+from matplotlib import cm, colors
 from streamlit_folium import folium_static
 
 # Streamlit App Title
@@ -93,35 +92,33 @@ if uploaded_file is not None:
         df_grouped = stripes_df.groupby(['year', 'day_of_year'])['PM2.5'].mean().reset_index()
         pm2_5_matrix = df_grouped.pivot(index='year', columns='day_of_year', values='PM2.5')
 
-        # Define colormap transition at PM2.5 = 50
-        cmap = mcolors.LinearSegmentedColormap.from_list("custom_cmap", 
-            ["blue", "blue", "red", "darkred"], N=256)
-
-        norm = mcolors.Normalize(vmin=0, vmax=250)  # Normalize PM2.5 values
-
-        # Create figure
+        cmap = cm.coolwarm
+        norm = colors.Normalize(vmin=0, vmax=250)
+        
+        def custom_cmap(value):
+            if value <= 50:
+                return (0, 0, 1, value / 50)  # Dark to light blue gradient
+            return cmap(norm(value))
+        
+        colors_array = np.vectorize(custom_cmap)(pm2_5_matrix)
+        
         fig, ax = plt.subplots(figsize=(15, 6))
         cax = ax.imshow(pm2_5_matrix, aspect='auto', cmap=cmap, norm=norm)
-
-        # Format y-axis with years
+        
         ax.set_yticks(np.arange(len(pm2_5_matrix.index)))
         ax.set_yticklabels(pm2_5_matrix.index, color='white', fontsize=12)
-
-        # Remove x-axis ticks
         ax.set_xticks([])
         ax.set_xlabel("")
         ax.set_ylabel("Year", color='white')
-
-        # Transparent figure background
+        
         fig.patch.set_alpha(0)
         ax.set_facecolor("none")
-
-        # Add colorbar
+        
         cbar = fig.colorbar(cax, orientation='horizontal', pad=0.1)
         cbar.set_label("PM2.5 Levels", color='white')
         cbar.ax.xaxis.set_tick_params(color='white')
         plt.setp(cbar.ax.xaxis.get_ticklabels(), color='white')
-
+        
         st.pyplot(fig)
 
         ##################### new section
