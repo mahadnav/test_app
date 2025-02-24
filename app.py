@@ -83,9 +83,9 @@ if uploaded_file is not None:
 
         def kpi_card(title, value, unit, color):
             st.markdown(f"""
-                <div style="border: 2px solid {color}; border-radius: 10px; padding: 10px; text-align: center;">
+                <div style="border: 2px solid white; border-radius: 10px; padding: 10px; text-align: center;">
                     <p style="margin-bottom: 4px; font-size: 16px; color: gray;">{title}</p>
-                    <h2 style="margin: 0; font-size: 32px; color: {color};">{value} <span style="font-size: 16px; color: gray;">{unit}</span></h2>
+                    <h2 style="margin: 0; font-size: 32px; color: white;">{value} <span style="font-size: 16px; color: gray;">{unit}</span></h2>
                 </div>
             """, unsafe_allow_html=True)
             st.plotly_chart(create_sparkline(df["PM2.5"], color), use_container_width=True)
