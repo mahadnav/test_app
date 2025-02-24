@@ -159,34 +159,38 @@ if uploaded_file is not None:
                 return "gray"
             
             icon_create_function = '''
-                function(cluster) {
-                    var markers = cluster.getAllChildMarkers();
-                    var maxPm25 = -Infinity;
-                    for (var i = 0; i < markers.length; i++) {
-                        var pm25 = parseFloat(markers[i].options.pm25);
-                        if (!isNaN(pm25) && pm25 > maxPm25) {
-                            maxPm25 = pm25;
-                        }
+            function(cluster) {
+                var markers = cluster.getAllChildMarkers();
+                var maxPm25 = -Infinity;
+
+                for (var i = 0; i < markers.length; i++) {
+                    var pm25 = parseFloat(markers[i].options.pm25) || -Infinity;
+                    if (pm25 > maxPm25) {
+                        maxPm25 = pm25;
                     }
-                    return L.divIcon({
-                        html: '<b>' + maxPm25.toFixed(1) + '</b>',
-                        className: 'marker-cluster marker-cluster-small',
-                        iconSize: new L.Point(40, 40)
-                    });
                 }
-                '''
+
+                return L.divIcon({
+                    html: '<div style="background-color: white; border-radius: 50%; padding: 5px; text-align: center;"><b>' + maxPm25.toFixed(1) + '</b></div>',
+                    className: 'marker-cluster marker-cluster-small',
+                    iconSize: new L.Point(40, 40)
+                });
+            }
+            '''
             
             marker_cluster = MarkerCluster(icon_create_function=icon_create_function)
             
             for _, row in map_df.iterrows():
                 color = get_pm25_color(row['PM2.5']) if not pd.isna(row['PM2.5']) else "gray"
-                folium.CircleMarker(
+                marker = folium.CircleMarker(
                     [row['latitude'], row['longitude']],
                     radius=5,
                     color=color,
                     fill=True,
                     fill_opacity=0.7
-                ).add_to(marker_cluster)
+                )
+                marker.options["pm25"] = row['PM2.5']
+                marker.add_to(marker_cluster)
                 
                 text_html = f'''<div style="color: white; font-size: 12px; font-weight: bold; text-align: center;">{round(row['PM2.5'])}</div>'''
                 folium.Marker(
