@@ -93,7 +93,7 @@ if uploaded_file is not None:
         pm2_5_matrix = df_grouped.pivot(index='year', columns='day_of_year', values='PM2.5')
 
         cmap = cm.coolwarm
-        norm = colors.Normalize(vmin=0, vmax=250)
+        norm = colors.Normalize(vmin=0, vmax=150)
         
         def custom_cmap(value):
             if value <= 32.5:
