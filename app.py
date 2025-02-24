@@ -109,7 +109,7 @@ if uploaded_file is not None:
         ax.set_yticklabels(pm2_5_matrix.index, color='white', fontsize=24)
         ax.set_xticks([])
         ax.set_xlabel("")
-        ax.set_ylabel("Year", color='white')
+        ax.set_ylabel("")
         
         fig.patch.set_alpha(0)
         ax.set_facecolor("none")
