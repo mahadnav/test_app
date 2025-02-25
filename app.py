@@ -21,11 +21,13 @@ with centered_col[1]:
     st.title("PM2.5 Data Analysis & Visualization\n")
 
     # Upload File
-    uploaded_file = st.file_uploader("# Upload your dataset", type=["csv"])
+    uploaded_file = st.file_uploader("Upload your dataset", type=["csv"])
 
     if uploaded_file is not None:
         if uploaded_file.name.endswith("csv"):
             df = pd.read_csv(uploaded_file)
+        else:
+            st.write('Please make sure it\'s a CSV file!')
         
         if df is not None:
             col_name = df.filter(like='PM2.5').columns[0]
