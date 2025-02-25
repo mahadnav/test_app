@@ -182,12 +182,9 @@ if uploaded_file is not None:
         stripes_df['year'] = stripes_df.index.year
         df_grouped = stripes_df.groupby(['year', 'day_of_year'])['PM2.5'].mean().reset_index()
         pm2_5_matrix = df_grouped.pivot(index='year', columns='day_of_year', values='PM2.5')
-
-        cmap = cm.coolwarm
-        norm = colors.Normalize(vmin=pm2_5_matrix['PM2.5'].min(), vmax=200)
         
         fig, ax = plt.subplots(figsize=(30, 30))
-        cax = ax.imshow(pm2_5_matrix, aspect='auto', cmap=cmap, norm=norm)
+        cax = ax.imshow(pm2_5_matrix, aspect='auto', cmap='coolwarm', vmin=0, vmax=200)
         
         ax.set_yticks(np.arange(len(pm2_5_matrix.index)))
         ax.set_yticklabels(pm2_5_matrix.index, color='white', fontsize=24)
