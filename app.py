@@ -23,7 +23,7 @@ with centered_col[1]:
     '''
     # :earth_americas: PM2.5 Data Analysis & Visualization
 
-    This tool allows you to upload your data set and analyze it in just a few seconds!
+    \tThis tool allows you to upload your data set and analyze it in just a few seconds!
     '''
 
     ''
