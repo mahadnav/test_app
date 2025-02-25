@@ -126,9 +126,8 @@ with centered_col[1]:
             st.write("## Filter Dataset")
             copy_df = df.copy()
             if 'City' in df.columns:
-                selected_city = st.selectbox("Select City", options=["All"] + list(copy_df['City'].unique()))
-                if selected_city != "All":
-                    copy_df = copy_df[copy_df['City'] == selected_city]
+                selected_city = st.selectbox("Select City", options=list(copy_df['City'].unique()))
+                copy_df = copy_df[copy_df['City'] == selected_city]
             
             if 'Name' in df.columns:
                 selected_name = st.selectbox("Select Monitor", options=["All"] + list(copy_df['Name'].unique()))
