@@ -12,13 +12,14 @@ from streamlit_folium import folium_static
 
 st.set_page_config(layout="wide")
 
-# Streamlit App Title
-st.title("PM2.5 Data Analysis & Visualization")
-
 # Create a centered layout for everything except the map
 centered_col = st.columns([0.15, 0.7, 0.15])  # 15% margin on both sides
 
 with centered_col[1]:
+
+    # Streamlit App Title
+    st.title("PM2.5 Data Analysis & Visualization\n")
+    
     # Upload File
     uploaded_file = st.file_uploader("Upload your dataset", type=["csv"])
 
