@@ -229,9 +229,8 @@ with centered_col[1]:
 
 
 
-
             ##################### new section
-            st.write("#### Comparative Analysis")
+            st.header('Comparative Analysis', divider='gray')
             if df['City'].nunique() > 1:
                 city_avg_pm25 = df.pivot_table(index = 'datetime', columns='City', values='PM2.5', aggfunc='mean')
                 selected_cities = st.multiselect("Select Cities", options=list(df['City'].unique()), default=df['City'].unique()[0])
