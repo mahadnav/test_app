@@ -108,12 +108,12 @@ if uploaded_file is not None:
         st.write("## Filter Dataset")
         copy_df = df.copy()
         if 'City' in df.columns:
-            selected_city = st.selectbox("Select City", options=["All"] + list(df['City'].unique()))
+            selected_city = st.selectbox("Select City", options=["All"] + list(copy_df['City'].unique()))
             if selected_city != "All":
                 copy_df = copy_df[copy_df['City'] == selected_city]
         
         if 'Name' in df.columns:
-            selected_name = st.selectbox("Select Monitor", options=["All"] + list(df['Name'].unique()))
+            selected_name = st.selectbox("Select Monitor", options=["All"] + list(copy_df['Name'].unique()))
             if selected_name != "All":
                 copy_df = copy_df[copy_df['Name'] == selected_name]
 
