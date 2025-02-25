@@ -251,7 +251,7 @@ with centered_col[1]:
                     city_avg_pm25.index = city_avg_pm25.index.year  
                     city_trends = px.bar(city_avg_pm25, x=city_avg_pm25.index, y=selected_cities, barmode="group")
 
-                st.plotly_chart(city_trends)
+                st.line_chart(city_trends)
             
             else:
                 st.write("###### Need more than 1 city for comparison!")
