@@ -187,7 +187,7 @@ if uploaded_file is not None:
         cax = ax.imshow(pm2_5_matrix, aspect='auto', cmap='coolwarm', vmin=0, vmax=200)
         
         ax.set_yticks(np.arange(len(pm2_5_matrix.index)))
-        ax.set_yticklabels(pm2_5_matrix.index, color='white', fontsize=38)
+        ax.set_yticklabels(pm2_5_matrix.index, color='white', fontsize=38, pad=5)
         ax.set_xticks([])
         ax.set_xlabel("")
         ax.set_ylabel("")
