@@ -196,7 +196,7 @@ with centered_col[1]:
             ##################### new section
             st.write("#### PM2.5 Stripes")
             stripes_df = df.copy()
-            print(stripes_df.head())
+            st.write(stripes_df.head())
             selected_city2 = st.selectbox("Select City", options=list(stripes_df['City'].unique()))   
             stripes_df = stripes_df[stripes_df['City'] == selected_city2]
             stripes_df['day_of_year'] = stripes_df.index.dayofyear
