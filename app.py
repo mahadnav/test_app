@@ -253,15 +253,16 @@ with centered_col[1]:
 
                 if selected_trend == 'Daily':
                     city_avg_pm25 = city_avg_pm25.resample('d').mean().sort_index()
-                    st.line_chart(city_avg_pm25, x=city_avg_pm25.index, y=selected_cities)
+                    city_trends = px.line(city_avg_pm25, x=city_avg_pm25.index, y=selected_cities)
                 elif selected_trend == 'Monthly':
                     city_avg_pm25 = city_avg_pm25.resample('ms').mean().sort_index()
-                    st.line_chart(city_avg_pm25, x=city_avg_pm25.index, y=selected_cities)
+                    city_trend = px.line(city_avg_pm25, x=city_avg_pm25.index, y=selected_cities)
                 else:
                     city_avg_pm25 = city_avg_pm25.resample('ys').mean().sort_index()
                     city_avg_pm25.index = city_avg_pm25.index.year  
                     city_trends = px.bar(city_avg_pm25, x=city_avg_pm25.index, y=selected_cities, barmode="group")
-                    st.plotly_chart(city_trends)
+                
+                st.plotly_chart(city_trends)
             
             else:
                 st.write("###### Need more than 1 city for comparison!")
