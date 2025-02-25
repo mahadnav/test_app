@@ -10,18 +10,20 @@ import matplotlib.pyplot as plt
 from matplotlib import cm, colors
 from streamlit_folium import folium_static
 
-st.set_page_config(layout="wide")
+st.set_page_config(layout="wide",
+                   page_title="PM2.5 Data Analysis & Visualization",
+                   page_icon=':earth_americas:',)
 
 # Create a centered layout for everything except the map
 centered_col = st.columns([0.15, 0.7, 0.15])  # 15% margin on both sides
 
 with centered_col[1]:
 
-    # Streamlit App Title
-    st.title("PM2.5 Data Analysis & Visualization\n")
-
-    # Upload File
-    uploaded_file = st.file_uploader("Upload your dataset", type=["csv"])
+    @st.cache_data
+    def get_data():
+        data = st.file_uploader("Upload your dataset", type=["csv"])
+        return data
+    uploaded_file = get_data()
 
     if uploaded_file is not None:
         if uploaded_file.name.endswith("csv"):
