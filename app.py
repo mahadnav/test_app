@@ -39,70 +39,73 @@ if uploaded_file is not None:
 
         ########################## new section
         # Geospatial Visualization with Matplotlib Colormap
-        st.write("## Air Quality Map")
+        full_width = st.container()
 
-        map_df = df.copy()
-        start_date, end_date = st.date_input("Select Date Range", [map_df.index.min(), map_df.index.max()])
-        map_df = map_df.loc[start_date:end_date]
-        map_df = pd.DataFrame(map_df.groupby(['Name', 'longitude', 'latitude'])['PM2.5'].mean()).reset_index()
+        with full_width:
+                st.write("## Air Quality Map")
 
-        m = folium.Map(location=[map_df['latitude'].mean(), map_df['longitude'].mean()], 
-                       zoom_start=5)
+                map_df = df.copy()
+                start_date, end_date = st.date_input("Select Date Range", [map_df.index.min(), map_df.index.max()])
+                map_df = map_df.loc[start_date:end_date]
+                map_df = pd.DataFrame(map_df.groupby(['Name', 'longitude', 'latitude'])['PM2.5'].mean()).reset_index()
 
-        # US EPA PM2.5 Breakpoints and Colors
-        pm25_breakpoints = [0, 12, 35.4, 55.4, 150.4, 250.4, 500.4]
-        colors = ["#00E400", "#FFFF00", "#FF7E00", "#FF0000", "#8F3F97", "#7E0023"]
+                m = folium.Map(location=[map_df['latitude'].mean(), map_df['longitude'].mean()], 
+                            zoom_start=5)
 
-        def get_pm25_color(value):
-            for i in range(len(pm25_breakpoints) - 1):
-                if pm25_breakpoints[i] <= value <= pm25_breakpoints[i + 1]:
-                    return colors[i]
-            return "gray"
-        
-        icon_create_function='''
-        function(cluster) {
-            var maxPm25 = Math.max.apply(null, cluster.getAllChildMarkers().map(m => parseFloat(m.options.pm25) || -Infinity));
+                # US EPA PM2.5 Breakpoints and Colors
+                pm25_breakpoints = [0, 12, 35.4, 55.4, 150.4, 250.4, 500.4]
+                colors = ["#00E400", "#FFFF00", "#FF7E00", "#FF0000", "#8F3F97", "#7E0023"]
 
-            function getColor(value) {
-                if (value <= 12) return "#00E400";   // Good (Green)
-                if (value <= 35.4) return "#FFFF00";  // Moderate (Yellow)
-                if (value <= 55.4) return "#FF7E00";  // Unhealthy for Sensitive Groups (Orange)
-                if (value <= 150.4) return "#FF0000"; // Unhealthy (Red)
-                if (value <= 250.4) return "#8F3F97"; // Very Unhealthy (Purple)
-                return "#7E0023";                    // Hazardous (Maroon)
-            }
+                def get_pm25_color(value):
+                    for i in range(len(pm25_breakpoints) - 1):
+                        if pm25_breakpoints[i] <= value <= pm25_breakpoints[i + 1]:
+                            return colors[i]
+                    return "gray"
+                
+                icon_create_function='''
+                function(cluster) {
+                    var maxPm25 = Math.max.apply(null, cluster.getAllChildMarkers().map(m => parseFloat(m.options.pm25) || -Infinity));
 
-            var bgColor = getColor(maxPm25);
+                    function getColor(value) {
+                        if (value <= 12) return "#00E400";   // Good (Green)
+                        if (value <= 35.4) return "#FFFF00";  // Moderate (Yellow)
+                        if (value <= 55.4) return "#FF7E00";  // Unhealthy for Sensitive Groups (Orange)
+                        if (value <= 150.4) return "#FF0000"; // Unhealthy (Red)
+                        if (value <= 250.4) return "#8F3F97"; // Very Unhealthy (Purple)
+                        return "#7E0023";                    // Hazardous (Maroon)
+                    }
 
-            return L.divIcon({
-                html: '<div style="background-color:' + bgColor + '; color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold;">' + maxPm25.toFixed(0) + '</div>',
-                className: 'marker-cluster',
-                iconSize: L.point(40, 40)
-            });
-        }
-    '''
-        
-        marker_cluster = MarkerCluster(icon_create_function=icon_create_function)
-        
-        for _, row in map_df.iterrows():
-            color = get_pm25_color(row['PM2.5']) if not pd.isna(row['PM2.5']) else "gray"
-            marker = folium.CircleMarker(
-                [row['latitude'], row['longitude']],
-                radius=10,
-                color=color,
-                fill=True,
-                fill_opacity=0.7
-            )
-            marker.options["pm25"] = round(row['PM2.5'], 0)
-            marker.add_to(marker_cluster)
-            
-            # text_html = f'''<div style="color: white; font-size: 12px; font-weight: bold; text-align: center;">{round(row['PM2.5'])}</div>'''
-            folium.Marker(
-                [row['latitude'], row['longitude']]
-            ).add_to(marker_cluster)
-        
-        marker_cluster.add_to(m)
-        folium_static(m)
+                    var bgColor = getColor(maxPm25);
+
+                    return L.divIcon({
+                        html: '<div style="background-color:' + bgColor + '; color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold;">' + maxPm25.toFixed(0) + '</div>',
+                        className: 'marker-cluster',
+                        iconSize: L.point(40, 40)
+                    });
+                }
+            '''
+                
+                marker_cluster = MarkerCluster(icon_create_function=icon_create_function)
+                
+                for _, row in map_df.iterrows():
+                    color = get_pm25_color(row['PM2.5']) if not pd.isna(row['PM2.5']) else "gray"
+                    marker = folium.CircleMarker(
+                        [row['latitude'], row['longitude']],
+                        radius=10,
+                        color=color,
+                        fill=True,
+                        fill_opacity=0.7
+                    )
+                    marker.options["pm25"] = round(row['PM2.5'], 0)
+                    marker.add_to(marker_cluster)
+                    
+                    # text_html = f'''<div style="color: white; font-size: 12px; font-weight: bold; text-align: center;">{round(row['PM2.5'])}</div>'''
+                    folium.Marker(
+                        [row['latitude'], row['longitude']]
+                    ).add_to(marker_cluster)
+                
+                marker_cluster.add_to(m)
+                folium_static(m)
         
         ################################# new section
         st.write("## Filter Dataset")
