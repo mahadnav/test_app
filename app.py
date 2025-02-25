@@ -19,7 +19,7 @@ with centered_col[1]:
 
     # Streamlit App Title
     st.title("PM2.5 Data Analysis & Visualization\n")
-    
+
     # Upload File
     uploaded_file = st.file_uploader("Upload your dataset", type=["csv"])
 
@@ -134,6 +134,7 @@ with centered_col[1]:
                     copy_df = copy_df[copy_df['Name'] == selected_name]
 
             copy_df['PM2.5'] = copy_df['PM2.5'].resample('1h').mean()
+            copy_df.dropna(inplace=True)
             
             # Date Filter options
             start_date, end_date = st.date_input("Select Date Range", [copy_df.index.min(), copy_df.index.max()])
