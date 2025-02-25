@@ -188,7 +188,7 @@ if uploaded_file is not None:
         
         ax.set_yticks(np.arange(len(pm2_5_matrix.index)))
         ax.set_yticklabels(pm2_5_matrix.index, color='white', fontsize=38)
-        ax.tick_params(axis='y', which='major', pad=15)
+        ax.tick_params(axis='y', which='major', pad=40)
         ax.set_xticks([])
         ax.set_xlabel("")
         ax.set_ylabel("")
