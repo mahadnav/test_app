@@ -46,7 +46,8 @@ if uploaded_file is not None:
         map_df = map_df.loc[start_date:end_date]
         map_df = pd.DataFrame(map_df.groupby(['Name', 'longitude', 'latitude'])['PM2.5'].mean()).reset_index()
 
-        m = folium.Map(location=[map_df['latitude'].mean(), map_df['longitude'].mean()], zoom_start=8)
+        m = folium.Map(location=[map_df['latitude'].mean(), map_df['longitude'].mean()], 
+                       zoom_start=5)
 
         # US EPA PM2.5 Breakpoints and Colors
         pm25_breakpoints = [0, 12, 35.4, 55.4, 150.4, 250.4, 500.4]
@@ -125,7 +126,7 @@ if uploaded_file is not None:
         ##################### new section
         st.markdown("### Air Quality KPIs")
 
-        # Calculate KPIs
+        # Calculate KPIs ####################################### create this for each city in the df
         min_pm25 = int(copy_df["PM2.5"].min())
         max_pm25 = int(copy_df["PM2.5"].max())
         mean_pm25 = int(copy_df["PM2.5"].mean())
