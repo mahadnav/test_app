@@ -182,7 +182,7 @@ if uploaded_file is not None:
         pm2_5_matrix = df_grouped.pivot(index='year', columns='day_of_year', values='PM2.5')
 
         cmap = cm.coolwarm
-        norm = colors.Normalize(vmin=0, vmax=100)
+        norm = colors.Normalize(vmin=0, vmax=200)
         
         fig, ax = plt.subplots(figsize=(30, 30))
         cax = ax.imshow(pm2_5_matrix, aspect='auto', cmap=cmap, norm=norm)
