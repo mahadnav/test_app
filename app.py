@@ -18,7 +18,7 @@ centered_col = st.columns([0.15, 0.7, 0.15])  # 15% margin on both sides
 with centered_col[1]:
 
     # Streamlit App Title
-    st.title("PM2.5 Data Analysis & Visualization\n")
+    st.title("PM2.5 Data Analysis & Visualization\n", divider='gray')
 
     # Upload File
     uploaded_file = st.file_uploader("Upload your dataset", type=["csv"])
@@ -51,7 +51,7 @@ with centered_col[1]:
 
             ########################## new section
             # Geospatial Visualization with Matplotlib Colormap
-            st.write("## Air Quality Map")
+            st.header('Air Quality Map', divider='gray')
 
             map_df = df.copy()
             start_date, end_date = st.date_input("Select Date Range", [map_df.index.min(), map_df.index.max()])
@@ -121,7 +121,7 @@ with centered_col[1]:
 
 
             ################################# new section
-            st.write("## Filter Dataset")
+            st.header('Filter Dataset', divider='gray')
             copy_df = df.copy()
             if 'City' in df.columns:
                 selected_city = st.selectbox("Select City", options=list(copy_df['City'].unique()))
@@ -183,7 +183,7 @@ with centered_col[1]:
 
 
             ##################### new section
-            st.write("#### PM2.5 Time Series")
+            st.header('PM2.5 Time Series', divider='gray')
             scatter = go.Scatter(x=copy_df.index, y=copy_df['PM2.5'], mode='markers')
             fig = go.Figure()
             fig.add_traces(scatter)
