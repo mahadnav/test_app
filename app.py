@@ -113,7 +113,7 @@ with centered_col[1]:
                 ).add_to(marker_cluster)
             
             marker_cluster.add_to(m)
-            folium_static(m, width=1350, height=800)
+            folium_static(m, width=1200, height=800)
 
 
 
