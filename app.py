@@ -47,7 +47,7 @@ if uploaded_file is not None:
         map_df = pd.DataFrame(map_df.groupby(['Name', 'longitude', 'latitude'])['PM2.5'].mean()).reset_index()
 
         # Create a full-width section for the map
-        col1, col2, col3 = st.columns([0.05, 0.9, 0.05])  # Small margins on left and right
+        col1, col2, col3 = st.columns([0.05, 0.5, 0.05])  # Small margins on left and right
 
         with col2:
             m = folium.Map(location=[map_df['latitude'].mean(), map_df['longitude'].mean()], 
