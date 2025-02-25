@@ -39,6 +39,7 @@ if uploaded_file is not None:
 
         ########################## new section
         # Geospatial Visualization with Matplotlib Colormap
+        st.set_page_config(layout="wide")
         full_width = st.container()
 
         with full_width:
