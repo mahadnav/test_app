@@ -104,6 +104,7 @@ if uploaded_file is not None:
         marker_cluster.add_to(m)
         folium_static(m)
         
+        ################################# new section
         st.write("## Filter Dataset")
         copy_df = df.copy()
         if 'City' in df.columns:
@@ -120,10 +121,10 @@ if uploaded_file is not None:
         
         # Date Filter options
         start_date, end_date = st.date_input("Select Date Range", [copy_df.index.min(), copy_df.index.max()])
-        copy_df = copy_df[(copy_df.index >= pd.Timestamp(start_date)) & (copy_df.index <= pd.Timestamp(end_date))]
+        copy_df = copy_df[start_date:end_date]
         copy_df.sort_index(inplace=True)
 
-        ##################### new section
+        ################################### new section
         st.markdown("### Air Quality KPIs")
 
         # Calculate KPIs ####################################### create this for each city in the df
