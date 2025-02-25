@@ -21,7 +21,7 @@ with centered_col[1]:
     st.title("PM2.5 Data Analysis & Visualization\n")
 
     # Upload File
-    uploaded_file = st.file_uploader("Upload your dataset", type=["csv"])
+    uploaded_file = st.file_uploader("### Upload your dataset", type=["csv"])
 
     if uploaded_file is not None:
         if uploaded_file.name.endswith("csv"):
