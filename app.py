@@ -10,6 +10,9 @@ import matplotlib.pyplot as plt
 from matplotlib import cm, colors
 from streamlit_folium import folium_static
 
+
+st.set_page_config(layout="wide")
+
 # Streamlit App Title
 st.title("PM2.5 Data Analysis & Visualization")
 
@@ -39,7 +42,6 @@ if uploaded_file is not None:
 
         ########################## new section
         # Geospatial Visualization with Matplotlib Colormap
-        st.set_page_config(layout="wide")
         full_width = st.container()
 
         with full_width:
