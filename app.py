@@ -19,7 +19,6 @@ centered_col = st.columns([0.15, 0.7, 0.15])  # 15% margin on both sides
 
 with centered_col[1]:
 
-    @st.cache_data
     def get_data():
         data = st.file_uploader("Upload your dataset", type=["csv"])
         return data
