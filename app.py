@@ -49,8 +49,6 @@ with centered_col[1]:
 
 
 
-
-
             ########################## new section
             # Geospatial Visualization with Matplotlib Colormap
             st.write("## Air Quality Map")
@@ -145,10 +143,6 @@ with centered_col[1]:
 
 
 
-
-
-
-
             ################################### new section
             st.markdown("### Air Quality KPIs")
 
@@ -188,24 +182,12 @@ with centered_col[1]:
 
 
 
-
-
-
-
             ##################### new section
             st.write("#### PM2.5 Time Series")
-            
             scatter = go.Scatter(x=copy_df.index, y=copy_df['PM2.5'], mode='markers')
-            # line = go.Scatter(x=df.index, y=df['PM2.5_MA'])
-            
             fig = go.Figure()
             fig.add_traces(scatter)
-            # fig.add_traces(line)
             st.plotly_chart(fig)
-
-
-
-
 
 
 
@@ -214,6 +196,7 @@ with centered_col[1]:
             ##################### new section
             st.write("#### PM2.5 Stripes")
             stripes_df = df.copy()
+            print(stripes_df.head())
             selected_city2 = st.selectbox("Select City", options=list(stripes_df['City'].unique()))   
             stripes_df = stripes_df[stripes_df['City'] == selected_city2]
             stripes_df['day_of_year'] = stripes_df.index.dayofyear
@@ -221,7 +204,7 @@ with centered_col[1]:
             df_grouped = stripes_df.groupby(['year', 'day_of_year'])['PM2.5'].mean().reset_index()
             pm2_5_matrix = df_grouped.pivot(index='year', columns='day_of_year', values='PM2.5')
             
-            fig, ax = plt.subplots(figsize=(30, pm2_5_matrix.index.nunique()*6))
+            fig, ax = plt.subplots(figsize=(30, pm2_5_matrix.index.nunique()*5))
             cax = ax.imshow(pm2_5_matrix, aspect='auto', cmap='coolwarm', vmin=0, vmax=200)
             
             ax.set_yticks(np.arange(len(pm2_5_matrix.index)))
