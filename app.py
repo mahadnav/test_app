@@ -14,6 +14,13 @@ st.set_page_config(layout="wide",
                    page_title="PM2.5 Data Analysis & Visualization",
                    page_icon=':earth_americas:',)
 
+# Set the title that appears at the top of the page.
+'''
+# :earth_americas: PM2.5 Data Analysis & Visualization
+
+This tool allows you to upload your data set and analyze it in just a few seconds!
+'''
+
 # Create a centered layout for everything except the map
 centered_col = st.columns([0.15, 0.7, 0.15])  # 15% margin on both sides
 
