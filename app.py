@@ -17,26 +17,27 @@ st.set_page_config(layout="wide",
 # Create a centered layout for everything except the map
 centered_col = st.columns([0.15, 0.7, 0.15])  # 15% margin on both sides
 
-with centered_col[0]:
-    st.markdown("""
-        <div style="
-            position: relative;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0);
-            border-radius: 8px;
-            width: 90%;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0);
-            margin-top: 550px; /* Adjust this value to move it down */
-        ">
-            <b>Legend</b><br>
-            <span style="background:#00E400; padding:5px; display:inline-block; width:20px;"></span> Good (0 - 12) <br>
-            <span style="background:#eedc5b; padding:5px; display:inline-block; width:20px;"></span> Moderate (12.1 - 35.4) <br>
-            <span style="background:#FF7E00; padding:5px; display:inline-block; width:20px;"></span> Unhealthy for Sensitive Groups (35.5 - 55.4) <br>
-            <span style="background:#FF0000; padding:5px; display:inline-block; width:20px;"></span> Unhealthy (55.5 - 150.4) <br>
-            <span style="background:#8F3F97; padding:5px; display:inline-block; width:20px;"></span> Very Unhealthy (150.5 - 250.4) <br>
-            <span style="background:#7E0023; padding:5px; display:inline-block; width:20px;"></span> Hazardous (250.5+) <br>
-        </div>
-    """, unsafe_allow_html=True)
+def map_legend():
+    with centered_col[0]:
+        st.markdown("""
+            <div style="
+                position: relative;
+                padding: 10px;
+                background: rgba(255, 255, 255, 0);
+                border-radius: 8px;
+                width: 90%;
+                box-shadow: 2px 2px 5px rgba(0,0,0,0);
+                margin-top: 550px; /* Adjust this value to move it down */
+            ">
+                <b>Legend</b><br>
+                <span style="background:#00E400; padding:5px; display:inline-block; width:20px;"></span> Good (0 - 12) <br>
+                <span style="background:#eedc5b; padding:5px; display:inline-block; width:20px;"></span> Moderate (12.1 - 35.4) <br>
+                <span style="background:#FF7E00; padding:5px; display:inline-block; width:20px;"></span> Unhealthy for Sensitive Groups (35.5 - 55.4) <br>
+                <span style="background:#FF0000; padding:5px; display:inline-block; width:20px;"></span> Unhealthy (55.5 - 150.4) <br>
+                <span style="background:#8F3F97; padding:5px; display:inline-block; width:20px;"></span> Very Unhealthy (150.5 - 250.4) <br>
+                <span style="background:#7E0023; padding:5px; display:inline-block; width:20px;"></span> Hazardous (250.5+) <br>
+            </div>
+        """, unsafe_allow_html=True)
 
 with centered_col[1]:
 
@@ -79,7 +80,7 @@ with centered_col[1]:
             df.set_index('datetime', inplace=True)
 
 
-
+            map_legend()
 
             ########################## new section
             # Geospatial Visualization with Matplotlib Colormap
