@@ -22,7 +22,7 @@ with centered_col[0]:
         <div style="
             position: relative;
             padding: 10px;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0);
             border-radius: 8px;
             width: 90%;
             box-shadow: 2px 2px 5px rgba(0,0,0,0);
