@@ -25,7 +25,7 @@ with centered_col[0]:
             background: rgba(255, 255, 255, 0.8);
             border-radius: 8px;
             width: 90%;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+            box-shadow: 2px 2px 5px rgba(0,0,0,0);
             margin-top: 500px; /* Adjust this value to move it down */
         ">
             <b>PM2.5 Levels</b><br>
