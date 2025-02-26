@@ -209,7 +209,7 @@ with centered_col[1]:
             with col3:
                 start_value = copy_df[copy_df.index.year.isin([start_year])]['PM2.5'].max()
                 end_value = copy_df[copy_df.index.year.isin([end_year])]['PM2.5'].max()
-                kpi_card("Max PM2.5", max_pm25, "ug/m3", "red", start_value, end_value)
+                kpi_card("Max PM2.5", max_pm25, "", "red", start_value, end_value)
             
 
 
