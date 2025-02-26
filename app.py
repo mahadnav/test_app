@@ -85,27 +85,35 @@ with centered_col[1]:
                 return "gray"
             
             icon_create_function='''
-            function(cluster) {
-                var maxPm25 = Math.mean.apply(null, cluster.getAllChildMarkers().map(m => parseFloat(m.options.pm25) || -Infinity));
+                function(cluster) {
+                    var pm25Values = cluster.getAllChildMarkers()
+                        .map(m => parseFloat(m.options.pm25))  // Extract PM2.5 values
+                        .filter(v => !isNaN(v));  // Remove NaN values
 
-                function getColor(value) {
-                    if (value <= 12) return "#00E400";   // Good (Green)
-                    if (value <= 35.4) return "#eedc5b";  // Moderate (Yellow)
-                    if (value <= 55.4) return "#FF7E00";  // Unhealthy for Sensitive Groups (Orange)
-                    if (value <= 150.4) return "#FF0000"; // Unhealthy (Red)
-                    if (value <= 250.4) return "#8F3F97"; // Very Unhealthy (Purple)
-                    return "#7E0023";                    // Hazardous (Maroon)
+                    if (pm25Values.length === 0) return L.divIcon({ html: "<div>No Data</div>", className: "marker-cluster" });
+
+                    var meanPm25 = pm25Values.reduce((sum, value) => sum + value, 0) / pm25Values.length; // Compute mean
+
+                    function getColor(value) {
+                        if (value <= 12) return "#00E400";   // Good (Green)
+                        if (value <= 35.4) return "#eedc5b";  // Moderate (Yellow)
+                        if (value <= 55.4) return "#FF7E00";  // Unhealthy for Sensitive Groups (Orange)
+                        if (value <= 150.4) return "#FF0000"; // Unhealthy (Red)
+                        if (value <= 250.4) return "#8F3F97"; // Very Unhealthy (Purple)
+                        return "#7E0023";                    // Hazardous (Maroon)
+                    }
+
+                    var bgColor = getColor(meanPm25);
+
+                    return L.divIcon({
+                        html: '<div style="background-color:' + bgColor + 
+                            '; color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold;">' 
+                            + meanPm25.toFixed(0) + '</div>',
+                        className: 'marker-cluster',
+                        iconSize: L.point(60, 60)
+                    });
                 }
-
-                var bgColor = getColor(maxPm25);
-
-                return L.divIcon({
-                    html: '<div style="background-color:' + bgColor + '; color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold;">' + maxPm25.toFixed(0) + '</div>',
-                    className: 'marker-cluster',
-                    iconSize: L.point(60, 00)
-                });
-            }
-        '''
+            '''
             
             marker_cluster = MarkerCluster(maxClusterRadius=20,
                                            disableClusteringAtZoom=20,
