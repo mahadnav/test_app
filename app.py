@@ -211,7 +211,7 @@ with centered_col[1]:
             col1, col2, col3 = st.columns(3)
 
             def kpi_card(title, value, unit, color, start_value, end_value):
-                percentage_change = int(((end_value - start_value) / start_value) * 100) if start_value != 0 else 0
+                percentage_change = ((end_value - start_value) / start_value) * 100 if start_value != 0 else 0
                 
                 # Set arrow and color
                 if percentage_change > 0:
@@ -232,7 +232,7 @@ with centered_col[1]:
                             {value}
                         </h2>
                         <p style="font-size: 18px; color: {percentage_color};">
-                            {arrow} {abs(percentage_change):.2f}%
+                            {arrow} {int(percentage_change)}%
                         </p>
                     </div>
                 """, unsafe_allow_html=True)
