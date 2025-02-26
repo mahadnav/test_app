@@ -86,7 +86,7 @@ with centered_col[1]:
             
             icon_create_function='''
             function(cluster) {
-                var maxPm25 = Math.max.apply(null, cluster.getAllChildMarkers().map(m => parseFloat(m.options.pm25) || -Infinity));
+                var maxPm25 = Math.mean.apply(null, cluster.getAllChildMarkers().map(m => parseFloat(m.options.pm25) || -Infinity));
 
                 function getColor(value) {
                     if (value <= 12) return "#00E400";   // Good (Green)
