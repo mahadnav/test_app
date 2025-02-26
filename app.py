@@ -181,10 +181,10 @@ with centered_col[1]:
                 
                 # Set arrow and color
                 if percentage_change > 0:
-                    arrow = "📈"
+                    arrow = "🔺"
                     percentage_color = "red"
                 elif percentage_change < 0:
-                    arrow = "📉"
+                    arrow = "🔻"
                     percentage_color = "green"
                 else:
                     arrow = "🔵"
