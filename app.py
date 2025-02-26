@@ -26,7 +26,7 @@ with centered_col[0]:
             border-radius: 8px;
             width: 90%;
             box-shadow: 2px 2px 5px rgba(0,0,0,0);
-            margin-top: 500px; /* Adjust this value to move it down */
+            margin-top: 550px; /* Adjust this value to move it down */
         ">
             <b>PM2.5 Levels</b><br>
             <span style="background:#00E400; padding:5px; display:inline-block; width:20px;"></span> Good (0 - 12) <br>
