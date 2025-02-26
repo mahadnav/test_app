@@ -192,7 +192,7 @@ with centered_col[1]:
                 percentage_color = "red" if percentage_change > 0 else "green"
                 
                 st.markdown(f"""
-                    <div style="border: 2px gray; border-radius: 10px; padding: 10px; text-align: center;">
+                    <div style="border: 2px solid white; border-radius: 10px; padding: 10px; text-align: center;">
                         <p style="margin-bottom: 4px; font-size: 16px; color: gray;">{title}</p>
                         <h2 style="margin: 0; font-size: 48px; color: white; text-align: center">
                             {value}
