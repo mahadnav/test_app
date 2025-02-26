@@ -154,7 +154,6 @@ with centered_col[1]:
                 marker.options["pm25"] = int(row['PM2.5'])
                 marker.add_to(marker_cluster)
                 
-                # text_html = f'''<div style="color: white; font-size: 12px; font-weight: bold; text-align: center;">{round(row['PM2.5'])}</div>'''
                 folium.Marker(
                     [row['latitude'], row['longitude']]
                 ).add_to(marker_cluster)
@@ -212,7 +211,7 @@ with centered_col[1]:
             col1, col2, col3 = st.columns(3)
 
             def kpi_card(title, value, unit, color, start_value, end_value):
-                percentage_change = ((end_value - start_value) / start_value) * 100 if start_value != 0 else 0
+                percentage_change = int(((end_value - start_value) / start_value) * 100) if start_value != 0 else 0
                 
                 # Set arrow and color
                 if percentage_change > 0:
@@ -301,9 +300,6 @@ with centered_col[1]:
             # plt.setp(cbar.ax.xaxis.get_ticklabels(), color='white')
             
             st.pyplot(fig)
-
-
-
 
 
 
