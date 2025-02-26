@@ -148,8 +148,12 @@ with centered_col[1]:
             copy_df.dropna(inplace=True)
             
             # Date Filter options
-            start_date, end_date = st.date_input("Select Date Range", [copy_df.index.min(), copy_df.index.max()])
-            copy_df = copy_df[start_date:end_date]
+            start_year, end_year = st.slider("Select Year Range", 
+                                             min_value=copy_df.index.year.min(),
+                                             max_value=copy_df.index.year.max(),
+                                             value=[copy_df.index.year.min(), copy_df.index.year.max()]
+                                             )
+            copy_df = copy_df[start_year:end_year]
             copy_df.sort_index(inplace=True)
 
 
