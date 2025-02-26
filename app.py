@@ -194,16 +194,21 @@ with centered_col[1]:
                 """, unsafe_allow_html=True)
                 st.plotly_chart(create_sparkline(df["PM2.5"].resample('D').mean()[-100:], color), use_container_width=True)
 
-            start_value = copy_df[copy_df.index.year.isin([start_year])]['PM2.5'].mean()
-            end_value = copy_df[copy_df.index.year.isin([end_year])]['PM2.5'].mean()
+            
 
             with col1:
+                start_value = copy_df[copy_df.index.year.isin([start_year])]['PM2.5'].min()
+                end_value = copy_df[copy_df.index.year.isin([end_year])]['PM2.5'].min()
                 kpi_card("Min PM2.5", min_pm25, "ug/m3", "green", start_value, end_value)
 
             with col2:
+                start_value = copy_df[copy_df.index.year.isin([start_year])]['PM2.5'].mean()
+                end_value = copy_df[copy_df.index.year.isin([end_year])]['PM2.5'].mean()
                 kpi_card("Mean PM2.5", mean_pm25, "ug/m3", "blue", start_value, end_value)
 
             with col3:
+                start_value = copy_df[copy_df.index.year.isin([start_year])]['PM2.5'].max()
+                end_value = copy_df[copy_df.index.year.isin([end_year])]['PM2.5'].max()
                 kpi_card("Max PM2.5", max_pm25, "ug/m3", "red", start_value, end_value)
             
 
