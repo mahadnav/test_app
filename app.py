@@ -156,7 +156,7 @@ with centered_col[1]:
 
 
             ################################### new section
-            st.markdown("### Air Quality KPIs")
+            st.write("#### Air Quality KPIs")
 
             # Calculate KPIs ####################################### create this for each city in the df
             min_pm25 = int(copy_df["PM2.5"].min())
@@ -195,7 +195,7 @@ with centered_col[1]:
 
 
             ##################### new section
-            st.header('PM2.5 Time Series', divider='gray')
+            st.write('### PM2.5 Time Series')
             scatter = go.Scatter(x=copy_df.index, y=copy_df['PM2.5'], mode='markers')
             fig = go.Figure()
             fig.add_traces(scatter)
@@ -206,7 +206,7 @@ with centered_col[1]:
 
 
             ##################### new section
-            st.write("#### PM2.5 Stripes")
+            st.write("### PM2.5 Stripes")
             stripes_df = df.copy()
             selected_city2 = st.selectbox("Which city would like to analyze?", options=list(stripes_df['City'].unique()))   
             stripes_df = stripes_df[stripes_df['City'] == selected_city2]
