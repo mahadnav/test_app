@@ -171,7 +171,7 @@ with centered_col[1]:
             def create_sparkline(data, color):
                 fig = go.Figure()
                 fig.add_trace(go.Scatter(y=data, mode="lines", line=dict(color=color, width=1)))
-                fig.update_layout(margin=dict(l=10, r=10, t=0, b=0), xaxis=dict(visible=False), yaxis=dict(visible=False), height=50)
+                fig.update_layout(margin=dict(l=50, r=50, t=0, b=0), xaxis=dict(visible=False), yaxis=dict(visible=False), height=50)
                 return fig
 
             col1, col2, col3 = st.columns(3)
