@@ -90,7 +90,7 @@ with centered_col[1]:
 
                 function getColor(value) {
                     if (value <= 12) return "#00E400";   // Good (Green)
-                    if (value <= 35.4) return "#FFFF00";  // Moderate (Yellow)
+                    if (value <= 35.4) return "#eedc5b";  // Moderate (Yellow)
                     if (value <= 55.4) return "#FF7E00";  // Unhealthy for Sensitive Groups (Orange)
                     if (value <= 150.4) return "#FF0000"; // Unhealthy (Red)
                     if (value <= 250.4) return "#8F3F97"; // Very Unhealthy (Purple)
