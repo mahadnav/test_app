@@ -28,7 +28,7 @@ with centered_col[0]:
             box-shadow: 2px 2px 5px rgba(0,0,0,0);
             margin-top: 550px; /* Adjust this value to move it down */
         ">
-            <b>PM2.5 Levels</b><br>
+            <b>Legend</b><br>
             <span style="background:#00E400; padding:5px; display:inline-block; width:20px;"></span> Good (0 - 12) <br>
             <span style="background:#FFFF00; padding:5px; display:inline-block; width:20px;"></span> Moderate (12.1 - 35.4) <br>
             <span style="background:#FF7E00; padding:5px; display:inline-block; width:20px;"></span> Unhealthy for Sensitive Groups (35.5 - 55.4) <br>
