@@ -107,7 +107,7 @@ with centered_col[1]:
             }
         '''
             
-            marker_cluster = MarkerCluster(maxClusterRadius=25,
+            marker_cluster = MarkerCluster(maxClusterRadius=20,
                                            disableClusteringAtZoom=25,
                                            icon_create_function=icon_create_function, 
                                            )
