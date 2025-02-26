@@ -73,6 +73,33 @@ with centered_col[1]:
             m = folium.Map(location=[map_df['latitude'].mean(), map_df['longitude'].mean()], 
                         zoom_start=5,
                         control_scale=True)
+            
+            from branca.element import Template, MacroElement
+
+            legend_html = '''
+            <div style="
+                position: fixed; 
+                bottom: 20px; left: 20px; width: 200px; height: auto; 
+                background-color: rgba(255, 255, 255, 0.85); 
+                z-index:9999; 
+                padding: 10px; 
+                border-radius: 5px; 
+                font-size: 14px;
+            ">
+                <b>PM2.5 Levels</b><br>
+                <i style="background:#00E400; width: 20px; height: 20px; display: inline-block;"></i> Good (0 - 12) <br>
+                <i style="background:#FFFF00; width: 20px; height: 20px; display: inline-block;"></i> Moderate (12.1 - 35.4) <br>
+                <i style="background:#FF7E00; width: 20px; height: 20px; display: inline-block;"></i> Unhealthy for Sensitive Groups (35.5 - 55.4) <br>
+                <i style="background:#FF0000; width: 20px; height: 20px; display: inline-block;"></i> Unhealthy (55.5 - 150.4) <br>
+                <i style="background:#8F3F97; width: 20px; height: 20px; display: inline-block;"></i> Very Unhealthy (150.5 - 250.4) <br>
+                <i style="background:#7E0023; width: 20px; height: 20px; display: inline-block;"></i> Hazardous (250.5+) <br>
+            </div>
+            '''
+
+            legend = MacroElement()
+            legend._template = Template(legend_html)
+
+            m.get_root().add_child(legend)
 
             # US EPA PM2.5 Breakpoints and Colors
             pm25_breakpoints = [0, 12, 35.4, 55.4, 150.4, 250.4, 500.4]
@@ -138,33 +165,6 @@ with centered_col[1]:
                 ).add_to(marker_cluster)
             
             marker_cluster.add_to(m)
-
-            from branca.element import Template, MacroElement
-
-            legend_html = '''
-            <div style="
-                position: fixed; 
-                bottom: 20px; left: 20px; width: 200px; height: auto; 
-                background-color: rgba(255, 255, 255, 0.85); 
-                z-index:9999; 
-                padding: 10px; 
-                border-radius: 5px; 
-                font-size: 14px;
-            ">
-                <b>PM2.5 Levels</b><br>
-                <i style="background:#00E400; width: 20px; height: 20px; display: inline-block;"></i> Good (0 - 12) <br>
-                <i style="background:#FFFF00; width: 20px; height: 20px; display: inline-block;"></i> Moderate (12.1 - 35.4) <br>
-                <i style="background:#FF7E00; width: 20px; height: 20px; display: inline-block;"></i> Unhealthy for Sensitive Groups (35.5 - 55.4) <br>
-                <i style="background:#FF0000; width: 20px; height: 20px; display: inline-block;"></i> Unhealthy (55.5 - 150.4) <br>
-                <i style="background:#8F3F97; width: 20px; height: 20px; display: inline-block;"></i> Very Unhealthy (150.5 - 250.4) <br>
-                <i style="background:#7E0023; width: 20px; height: 20px; display: inline-block;"></i> Hazardous (250.5+) <br>
-            </div>
-            '''
-
-            legend = MacroElement()
-            legend._template = Template(legend_html)
-
-            m.get_root().add_child(legend)
 
             folium_static(m, width=1220, height=700)
 
