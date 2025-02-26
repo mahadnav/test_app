@@ -202,7 +202,7 @@ with centered_col[1]:
                         </p>
                     </div>
                 """, unsafe_allow_html=True)
-                st.plotly_chart(create_sparkline(df["PM2.5"].resample('D').mean()[-100:], color), use_container_width=True)
+                st.plotly_chart(create_sparkline(df["PM2.5"].resample('1w').mean(), color), use_container_width=True)
 
             
 
