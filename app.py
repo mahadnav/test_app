@@ -102,13 +102,13 @@ with centered_col[1]:
                 return L.divIcon({
                     html: '<div style="background-color:' + bgColor + '; color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold;">' + maxPm25.toFixed(0) + '</div>',
                     className: 'marker-cluster',
-                    iconSize: L.point(40, 40)
+                    iconSize: L.point(60, 00)
                 });
             }
         '''
             
             marker_cluster = MarkerCluster(maxClusterRadius=20,
-                                           disableClusteringAtZoom=25,
+                                           disableClusteringAtZoom=20,
                                            icon_create_function=icon_create_function, 
                                            )
             
