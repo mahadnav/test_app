@@ -153,7 +153,7 @@ with centered_col[1]:
                                              max_value=copy_df.index.year.max(),
                                              value=[copy_df.index.year.min(), copy_df.index.year.max()]
                                              )
-            copy_df = copy_df[copy_df.index.year.isin([start_year]):copy_df.index.year.isin([end_year])]
+            copy_df = copy_df[(copy_df.index.year >= start_year) & (copy_df.index.year <= end_year)]
             copy_df.sort_index(inplace=True)
 
 
