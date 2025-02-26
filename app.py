@@ -17,6 +17,25 @@ st.set_page_config(layout="wide",
 # Create a centered layout for everything except the map
 centered_col = st.columns([0.15, 0.7, 0.15])  # 15% margin on both sides
 
+with centered_col[0]:
+    st.markdown("""
+        <div style="
+            background-color: rgba(255, 255, 255, 0.85); 
+            padding: 10px; 
+            border-radius: 5px; 
+            font-size: 14px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        ">
+            <b>PM2.5 Levels</b><br>
+            <i style="background:#00E400; width: 20px; height: 20px; display: inline-block;"></i> Good (0 - 12) <br>
+            <i style="background:#FFFF00; width: 20px; height: 20px; display: inline-block;"></i> Moderate (12.1 - 35.4) <br>
+            <i style="background:#FF7E00; width: 20px; height: 20px; display: inline-block;"></i> Unhealthy for Sensitive Groups (35.5 - 55.4) <br>
+            <i style="background:#FF0000; width: 20px; height: 20px; display: inline-block;"></i> Unhealthy (55.5 - 150.4) <br>
+            <i style="background:#8F3F97; width: 20px; height: 20px; display: inline-block;"></i> Very Unhealthy (150.5 - 250.4) <br>
+            <i style="background:#7E0023; width: 20px; height: 20px; display: inline-block;"></i> Hazardous (250.5+) <br>
+        </div>
+    """, unsafe_allow_html=True)
+
 with centered_col[1]:
 
     # Set the title that appears at the top of the page.
@@ -74,40 +93,6 @@ with centered_col[1]:
                         zoom_start=5,
                         control_scale=True)
             
-            from folium import Map, Marker
-            from folium.plugins import MarkerCluster
-            from folium.features import DivIcon
-
-            # Legend HTML as a floating Marker (Ensures it Appears)
-            legend_html = '''
-            <div style="
-                position: fixed; 
-                bottom: 20px; left: 20px; 
-                width: 220px; height: auto; 
-                background-color: rgba(255, 255, 255, 0.85); 
-                z-index: 9999; 
-                padding: 10px; 
-                border-radius: 5px;
-                font-size: 14px;
-                box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-            ">
-                <b>PM2.5 Levels</b><br>
-                <i style="background:#00E400; width: 20px; height: 20px; display: inline-block;"></i> Good (0 - 12) <br>
-                <i style="background:#FFFF00; width: 20px; height: 20px; display: inline-block;"></i> Moderate (12.1 - 35.4) <br>
-                <i style="background:#FF7E00; width: 20px; height: 20px; display: inline-block;"></i> Unhealthy for Sensitive Groups (35.5 - 55.4) <br>
-                <i style="background:#FF0000; width: 20px; height: 20px; display: inline-block;"></i> Unhealthy (55.5 - 150.4) <br>
-                <i style="background:#8F3F97; width: 20px; height: 20px; display: inline-block;"></i> Very Unhealthy (150.5 - 250.4) <br>
-                <i style="background:#7E0023; width: 20px; height: 20px; display: inline-block;"></i> Hazardous (250.5+) <br>
-            </div>
-            '''
-
-            legend = folium.Marker(
-                [map_df['latitude'].max(), map_df['longitude'].min()],
-                icon=DivIcon(icon_size=(250, 150), html=legend_html)
-            )
-
-            m.add_child(legend)
-
             # US EPA PM2.5 Breakpoints and Colors
             pm25_breakpoints = [0, 12, 35.4, 55.4, 150.4, 250.4, 500.4]
             colors = ["#00E400", "#FFFF00", "#FF7E00", "#FF0000", "#8F3F97", "#7E0023"]
