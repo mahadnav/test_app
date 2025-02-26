@@ -20,19 +20,20 @@ centered_col = st.columns([0.15, 0.7, 0.15])  # 15% margin on both sides
 with centered_col[0]:
     st.markdown("""
         <div style="
-            background-color: rgba(255, 255, 255, 0.85); 
-            padding: 10px; 
-            border-radius: 5px; 
-            font-size: 14px;
+            position: relative;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            width: 90%;
             box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
         ">
             <b>PM2.5 Levels</b><br>
-            <i style="background:#00E400; width: 20px; height: 20px; display: inline-block;"></i> Good (0 - 12) <br>
-            <i style="background:#FFFF00; width: 20px; height: 20px; display: inline-block;"></i> Moderate (12.1 - 35.4) <br>
-            <i style="background:#FF7E00; width: 20px; height: 20px; display: inline-block;"></i> Unhealthy for Sensitive Groups (35.5 - 55.4) <br>
-            <i style="background:#FF0000; width: 20px; height: 20px; display: inline-block;"></i> Unhealthy (55.5 - 150.4) <br>
-            <i style="background:#8F3F97; width: 20px; height: 20px; display: inline-block;"></i> Very Unhealthy (150.5 - 250.4) <br>
-            <i style="background:#7E0023; width: 20px; height: 20px; display: inline-block;"></i> Hazardous (250.5+) <br>
+            <span style="background:#00E400; padding:5px; display:inline-block; width:20px;"></span> Good (0 - 12) <br>
+            <span style="background:#FFFF00; padding:5px; display:inline-block; width:20px;"></span> Moderate (12.1 - 35.4) <br>
+            <span style="background:#FF7E00; padding:5px; display:inline-block; width:20px;"></span> Unhealthy for Sensitive Groups (35.5 - 55.4) <br>
+            <span style="background:#FF0000; padding:5px; display:inline-block; width:20px;"></span> Unhealthy (55.5 - 150.4) <br>
+            <span style="background:#8F3F97; padding:5px; display:inline-block; width:20px;"></span> Very Unhealthy (150.5 - 250.4) <br>
+            <span style="background:#7E0023; padding:5px; display:inline-block; width:20px;"></span> Hazardous (250.5+) <br>
         </div>
     """, unsafe_allow_html=True)
 
