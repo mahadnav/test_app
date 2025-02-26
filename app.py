@@ -30,7 +30,7 @@ with centered_col[0]:
         ">
             <b>Legend</b><br>
             <span style="background:#00E400; padding:5px; display:inline-block; width:20px;"></span> Good (0 - 12) <br>
-            <span style="background:#FFFF00; padding:5px; display:inline-block; width:20px;"></span> Moderate (12.1 - 35.4) <br>
+            <span style="background:#eedc5b; padding:5px; display:inline-block; width:20px;"></span> Moderate (12.1 - 35.4) <br>
             <span style="background:#FF7E00; padding:5px; display:inline-block; width:20px;"></span> Unhealthy for Sensitive Groups (35.5 - 55.4) <br>
             <span style="background:#FF0000; padding:5px; display:inline-block; width:20px;"></span> Unhealthy (55.5 - 150.4) <br>
             <span style="background:#8F3F97; padding:5px; display:inline-block; width:20px;"></span> Very Unhealthy (150.5 - 250.4) <br>
@@ -97,7 +97,7 @@ with centered_col[1]:
             
             # US EPA PM2.5 Breakpoints and Colors
             pm25_breakpoints = [0, 12, 35.4, 55.4, 150.4, 250.4, 500.4]
-            colors = ["#00E400", "#FFFF00", "#FF7E00", "#FF0000", "#8F3F97", "#7E0023"]
+            colors = ["#00E400", "#eedc5b", "#FF7E00", "#FF0000", "#8F3F97", "#7E0023"]
 
             def get_pm25_color(value):
                 for i in range(len(pm25_breakpoints) - 1):
