@@ -178,7 +178,17 @@ with centered_col[1]:
 
             def kpi_card(title, value, unit, color, start_value, end_value):
                 percentage_change = ((end_value - start_value) / start_value) * 100 if start_value != 0 else 0
-                arrow = "🔼" if percentage_change > 0 else "🔽"
+                
+                # Set arrow and color
+                if percentage_change > 0:
+                    arrow = "📈"
+                    percentage_color = "red"
+                elif percentage_change < 0:
+                    arrow = "📉"
+                    percentage_color = "green"
+                else:
+                    arrow = "🔵"
+                    percentage_color = "blue"
                 percentage_color = "red" if percentage_change > 0 else "green"
                 
                 st.markdown(f"""
