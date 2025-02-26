@@ -195,7 +195,7 @@ with centered_col[1]:
 
 
             ##################### new section
-            st.write('### PM2.5 Time Series')
+            st.write('### Time Series Chart')
             scatter = go.Scatter(x=copy_df.index, y=copy_df['PM2.5'], mode='markers')
             fig = go.Figure()
             fig.add_traces(scatter)
