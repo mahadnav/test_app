@@ -74,17 +74,22 @@ with centered_col[1]:
                         zoom_start=5,
                         control_scale=True)
             
-            from branca.element import Template, MacroElement
+            from folium import Map, Marker
+            from folium.plugins import MarkerCluster
+            from folium.features import DivIcon
 
+            # Legend HTML as a floating Marker (Ensures it Appears)
             legend_html = '''
             <div style="
                 position: fixed; 
-                bottom: 20px; left: 20px; width: 200px; height: auto; 
+                bottom: 20px; left: 20px; 
+                width: 220px; height: auto; 
                 background-color: rgba(255, 255, 255, 0.85); 
-                z-index:9999; 
+                z-index: 9999; 
                 padding: 10px; 
-                border-radius: 5px; 
+                border-radius: 5px;
                 font-size: 14px;
+                box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
             ">
                 <b>PM2.5 Levels</b><br>
                 <i style="background:#00E400; width: 20px; height: 20px; display: inline-block;"></i> Good (0 - 12) <br>
@@ -96,10 +101,12 @@ with centered_col[1]:
             </div>
             '''
 
-            legend = MacroElement()
-            legend._template = Template(legend_html)
+            legend = folium.Marker(
+                [map_df['latitude'].max(), map_df['longitude'].min()],
+                icon=DivIcon(icon_size=(250, 150), html=legend_html)
+            )
 
-            m.get_root().add_child(legend)
+            m.add_child(legend)
 
             # US EPA PM2.5 Breakpoints and Colors
             pm25_breakpoints = [0, 12, 35.4, 55.4, 150.4, 250.4, 500.4]
