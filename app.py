@@ -133,9 +133,9 @@ with centered_col[1]:
                 marker.add_to(marker_cluster)
                 
                 # text_html = f'''<div style="color: white; font-size: 12px; font-weight: bold; text-align: center;">{round(row['PM2.5'])}</div>'''
-                folium.Marker(
-                    [row['latitude'], row['longitude']]
-                ).add_to(marker_cluster)
+                # folium.Marker(
+                #     [row['latitude'], row['longitude']]
+                # ).add_to(marker_cluster)
             
             marker_cluster.add_to(m)
             folium_static(m, width=1220, height=700)
