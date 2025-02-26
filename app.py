@@ -71,7 +71,8 @@ with centered_col[1]:
             map_df = pd.DataFrame(map_df.groupby(['Name', 'longitude', 'latitude'])['PM2.5'].mean()).reset_index()
 
             m = folium.Map(location=[map_df['latitude'].mean(), map_df['longitude'].mean()], 
-                        zoom_start=5)
+                        zoom_start=5,
+                        control_scale=True)
 
             # US EPA PM2.5 Breakpoints and Colors
             pm25_breakpoints = [0, 12, 35.4, 55.4, 150.4, 250.4, 500.4]
