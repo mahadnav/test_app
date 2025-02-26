@@ -106,7 +106,9 @@ with centered_col[1]:
             }
         '''
             
-            marker_cluster = MarkerCluster(icon_create_function=icon_create_function)
+            marker_cluster = MarkerCluster(icon_create_function=icon_create_function, 
+                                           maxClusterRadius=20,  # Lower value = earlier declustering
+                                           disableClusteringAtZoom=8)  # Adjust zoom level for declustering)
             
             for _, row in map_df.iterrows():
                 color = get_pm25_color(row['PM2.5']) if not pd.isna(row['PM2.5']) else "gray"
