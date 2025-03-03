@@ -79,14 +79,21 @@ with centered_col[1]:
             df['datetime'] = pd.to_datetime(df['datetime'])
             df.set_index('datetime', inplace=True)
 
+
+
+
+
+
+            ########################## new section
+            # Geospatial Visualization with Matplotlib Colormap
+            # st.header('\nAir Quality Map', divider='gray')
+
+
             if ('longitude' and 'latitude') in df.columns:
                 map_legend()
 
-                ########################## new section
-                # Geospatial Visualization with Matplotlib Colormap
-                # st.header('\nAir Quality Map', divider='gray')
-
                 map_df = df.copy()
+                map_df = map_df.resample('D').mean()
                 # start_date, end_date = st.date_input("Select Date Range", [map_df.index.min(), map_df.index.max()])
                 start_date, end_date = [map_df.index[-30], map_df.index[-1]]
                 map_df = map_df.loc[start_date:end_date]
