@@ -94,8 +94,8 @@ with centered_col[1]:
 
                 map_df = df.copy()
                 # start_date, end_date = st.date_input("Select Date Range", [map_df.index.min(), map_df.index.max()])
-                start_date, end_date = [map_df.index.date[-30], map_df.index.date[-1]]
-                map_df = map_df[(map_df.index >= start_date) & (map_df.index <= end_date)]
+                # start_date, end_date = [map_df.index.date[-30], map_df.index.date[-1]]
+                # map_df = map_df[(map_df.index >= start_date) & (map_df.index <= end_date)]
                 map_df = pd.DataFrame(map_df.groupby(['Name', 'longitude', 'latitude'])['PM2.5'].mean()).reset_index()
                 st.write(map_df)
 
