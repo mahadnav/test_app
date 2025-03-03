@@ -98,7 +98,6 @@ with centered_col[1]:
                 # start_date, end_date = [map_df.index.date[-30], map_df.index.date[-1]]
                 map_df = map_df[map_df.index.year == year]
                 map_df = pd.DataFrame(map_df.groupby(['Name', 'longitude', 'latitude'])['PM2.5'].mean()).reset_index()
-                st.write(map_df)
 
                 m = folium.Map(location=[map_df['latitude'].mean(), map_df['longitude'].mean()], 
                             zoom_start=5,
