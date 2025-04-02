@@ -291,6 +291,7 @@ with centered_col[1]:
             # Define PM2.5 breakpoints and corresponding colors
             breakpoints = [0, 12, 35.4, 55.4, 150.4, 250.4, 1000]
             colors = ['#00E400', '#FFFF00', '#FF7E00', '#FF0000', '#8F3F97', '#7E0023']
+            categories = ["Good", "Moderate", "Unhealthy for Sensitive Groups", "Unhealthy", "Very Unhealthy", "Hazardous"]
 
             # Create colormap and normalizer
             cmap = ListedColormap(colors)
@@ -307,8 +308,9 @@ with centered_col[1]:
             ax.set_ylabel("")
 
             # Add colorbar
-            cbar = fig.colorbar(cax, ticks=breakpoints)
-            cbar.set_label("PM2.5 Concentration (µg/m³)")   
+            cbar = fig.colorbar(cax, ticks=breakpoints, orientation='horizontal', pad=0.01)
+            cbar.set_label("PM2.5 Concentration (µg/m³)")
+            cbar.ax.set_yticklabels(categories)   
             
             fig.patch.set_alpha(0)
             ax.set_facecolor("none")
