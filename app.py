@@ -297,9 +297,9 @@ with centered_col[1]:
                         return colors[i]
                 return colors[-1]
 
-            colors = [pm25_to_color(val) for val in pm2_5_matrix['PM2.5'].values.flatten()]
+            color_map = [pm25_to_color(val) for val in pm2_5_matrix['PM2.5'].values.flatten()]
             fig, ax = plt.subplots(figsize=(30, pm2_5_matrix.index.nunique()*3))
-            cax = ax.imshow(pm2_5_matrix, aspect='auto', cmap=colors, vmin=0, vmax=200)
+            cax = ax.imshow(pm2_5_matrix, aspect='auto', cmap=color_map)
             
             ax.set_yticks(np.arange(len(pm2_5_matrix.index)))
             ax.set_yticklabels(pm2_5_matrix.index, color='white', fontsize=38)
