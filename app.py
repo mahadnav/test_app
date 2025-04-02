@@ -290,7 +290,7 @@ with centered_col[1]:
             
             # Define PM2.5 breakpoints and corresponding colors
             breakpoints = [0, 12, 35.4, 55.4, 150.4, 250.4, 1000]
-            colors = ['#00E400', '#FFFF00', '#FF7E00', '#FF0000', '#8F3F97', '#7E0023', '#7E0023']
+            colors = ['#A8E6CF', '#FFD3B6', '#FFABAB', '#FF677D', '#D4A5A5', '#392F5A', '#7E0023']
             categories = ["Good", "Moderate", "Unhealthy for Sensitive Groups", "Unhealthy", "Very Unhealthy", "Hazardous", "Hazardous"]
 
             # Create colormap and normalizer
