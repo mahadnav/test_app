@@ -296,8 +296,6 @@ with centered_col[1]:
             cmap = ListedColormap(colors)
             norm = BoundaryNorm(breakpoints, cmap.N)
 
-            map_legend()
-
             fig, ax = plt.subplots(figsize=(30, pm2_5_matrix.index.nunique()*3))
             cax = ax.imshow(pm2_5_matrix, aspect='auto', cmap=cmap, norm=norm)
             
@@ -307,6 +305,10 @@ with centered_col[1]:
             ax.set_xticks([])
             ax.set_xlabel("")
             ax.set_ylabel("")
+
+            # Add colorbar
+            cbar = fig.colorbar(cax, ticks=breakpoints)
+            cbar.set_label("PM2.5 Concentration (µg/m³)")
             
             fig.patch.set_alpha(0)
             ax.set_facecolor("none")
