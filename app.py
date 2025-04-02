@@ -299,6 +299,9 @@ with centered_col[1]:
 
             fig, ax = plt.subplots(figsize=(30, pm2_5_matrix.index.nunique()*3))
             cax = ax.imshow(pm2_5_matrix, aspect='auto', cmap=cmap, norm=norm)
+
+            # **Calculate midpoints for labels to align with color segments**
+            midpoints = [(breakpoints[i] + breakpoints[i+1]) / 2 for i in range(len(categories))]
             
             ax.set_yticks(np.arange(len(pm2_5_matrix.index)))
             ax.set_yticklabels(pm2_5_matrix.index, color='white', fontsize=38)
@@ -310,7 +313,8 @@ with centered_col[1]:
             # Add colorbar
             cbar = fig.colorbar(cax, boundaries=breakpoints, ticks=breakpoints, orientation='horizontal', pad=0.01)
             cbar.set_label("PM2.5 Concentration (µg/m³)")
-            cbar.ax.set_xticklabels(categories, color='white', fontsize=12)   
+            cbar.set_ticks(midpoints)
+            cbar.ax.set_xticklabels(categories, color='white', fontsize=14)   
             
             fig.patch.set_alpha(0)
             ax.set_facecolor("none")
