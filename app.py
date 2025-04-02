@@ -315,7 +315,7 @@ with centered_col[1]:
             cbar.ax.set_aspect(0.5)
             cbar.set_ticks(midpoints)
             cbar.set_ticklabels(categories[:-1], fontsize=24)
-            cbar.ax.tick_params(axis='x', colors='white', labelsize=16, length=0)
+            cbar.ax.tick_params(axis='x', colors='white', labelsize=24, length=0)
             
             fig.patch.set_alpha(0)
             ax.set_facecolor("none")
