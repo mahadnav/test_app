@@ -301,7 +301,7 @@ with centered_col[1]:
             cax = ax.imshow(pm2_5_matrix, aspect='auto', cmap=cmap, norm=norm)
 
             # **Calculate midpoints for labels to align with color segments**
-            midpoints = [(breakpoints[i] + breakpoints[i+1]) / 2 for i in range(len(categories))]
+            midpoints = [(breakpoints[i] + breakpoints[i+1]) / 2 for i in range(len(categories) - 1)]
             
             ax.set_yticks(np.arange(len(pm2_5_matrix.index)))
             ax.set_yticklabels(pm2_5_matrix.index, color='white', fontsize=38)
