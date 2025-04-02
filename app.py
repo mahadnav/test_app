@@ -8,6 +8,7 @@ from folium.plugins import MarkerCluster
 import xarray as xr
 import matplotlib.pyplot as plt
 from matplotlib import cm, colors
+from matplotlib.colors import ListedColormap, BoundaryNorm
 from streamlit_folium import folium_static
 
 st.set_page_config(layout="wide",
@@ -287,19 +288,16 @@ with centered_col[1]:
             df_grouped = stripes_df.groupby(['year', 'day_of_year'])['PM2.5'].mean().reset_index()
             pm2_5_matrix = df_grouped.pivot(index='year', columns='day_of_year', values='PM2.5')
             
-            def pm25_to_color(pm25):
-                """Maps PM2.5 concentration to AQI color."""
-                breakpoints = [0, 12, 35.4, 55.4, 150.4, 250.4, np.inf]
-                colors = ['#00E400', '#FFFF00', '#FF7E00', '#FF0000', '#8F3F97', '#7E0023']
-                
-                for i, bp in enumerate(breakpoints):
-                    if pm25 <= bp:
-                        return colors[i]
-                return colors[-1]
+            # Define PM2.5 breakpoints and corresponding colors
+            breakpoints = [0, 12, 35.4, 55.4, 150.4, 250.4, np.inf]
+            colors = ['#00E400', '#FFFF00', '#FF7E00', '#FF0000', '#8F3F97', '#7E0023']
 
-            color_map = [pm25_to_color(val) for val in pm2_5_matrix['PM2.5'].values]
+            # Create colormap and normalizer
+            cmap = ListedColormap(colors)
+            norm = BoundaryNorm(breakpoints, cmap.N)
+
             fig, ax = plt.subplots(figsize=(30, pm2_5_matrix.index.nunique()*3))
-            cax = ax.imshow(pm2_5_matrix, aspect='auto', cmap=color_map)
+            cax = ax.imshow(pm2_5_matrix, aspect='auto', cmap=cmap, norm=norm)
             
             ax.set_yticks(np.arange(len(pm2_5_matrix.index)))
             ax.set_yticklabels(pm2_5_matrix.index, color='white', fontsize=38)
