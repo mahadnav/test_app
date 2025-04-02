@@ -289,9 +289,9 @@ with centered_col[1]:
             pm2_5_matrix = df_grouped.pivot(index='year', columns='day_of_year', values='PM2.5')
             
             # Define PM2.5 breakpoints and corresponding colors
-            breakpoints = [0, 12, 35.4, 55.4, 150.4, 250.4]
-            colors = ['#00E400', '#FFFF00', '#FF7E00', '#FF0000', '#8F3F97', '#7E0023']
-            categories = ["Good", "Moderate", "Unhealthy for Sensitive Groups", "Unhealthy", "Very Unhealthy", "Hazardous"]
+            breakpoints = [0, 12, 35.4, 55.4, 150.4, 250.4, 1000]
+            colors = ['#00E400', '#FFFF00', '#FF7E00', '#FF0000', '#8F3F97', '#7E0023', '#7E0023']
+            categories = ["Good", "Moderate", "Unhealthy for Sensitive Groups", "Unhealthy", "Very Unhealthy", "Hazardous", "Hazardous"]
 
             # Create colormap and normalizer
             cmap = ListedColormap(colors)
