@@ -311,7 +311,7 @@ with centered_col[1]:
             ax.set_ylabel("")
 
             # Add colorbar
-            cbar = fig.colorbar(cax, boundaries=breakpoints, ticks=breakpoints, orientation='horizontal', pad=0.01)
+            cbar = fig.colorbar(cax, boundaries=breakpoints, orientation='horizontal', pad=0.01)
             cbar.set_label("PM2.5 Concentration (µg/m³)")
             cbar.set_ticks(midpoints)
             cbar.ax.set_xticklabels(categories, color='white', fontsize=14)   
