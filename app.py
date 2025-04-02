@@ -311,14 +311,14 @@ with centered_col[1]:
             month_days = [1, 32, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335]  # Approx. start of each month
             month_labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
             ax.set_xticks(month_days)
-            ax.set_xticklabels(month_labels, color='white', fontsize=12)
+            ax.set_xticklabels(month_labels, color='white', fontsize=14)
 
             # **Remove extra labels**
             ax.set_xlabel("")
             ax.set_ylabel("")
 
             # Add colorbar
-            cbar = fig.colorbar(cax, boundaries=breakpoints, orientation='horizontal', pad=0.1, aspect=45)
+            cbar = fig.colorbar(cax, boundaries=breakpoints, orientation='horizontal', pad=0.05, aspect=45)
             cbar.set_ticks(midpoints)
             cbar.set_ticklabels(categories[:-1], fontsize=16)
             cbar.ax.tick_params(axis='x', colors='white', labelsize=16, length=0, pad=10)
