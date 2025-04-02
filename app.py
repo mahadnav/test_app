@@ -311,7 +311,7 @@ with centered_col[1]:
             ax.set_ylabel("")
 
             # Add colorbar
-            cbar = fig.colorbar(cax, boundaries=breakpoints, orientation='horizontal', shrink=0.9, pad=0.01, aspect=10)
+            cbar = fig.colorbar(cax, boundaries=breakpoints, orientation='horizontal', shrink=0.9, pad=0.01, aspect=30)
             cbar.set_ticks(midpoints)
             cbar.set_ticklabels(categories[:-1], fontsize=16)
             cbar.ax.tick_params(axis='x', colors='white', labelsize=16, length=0, pad=10)
