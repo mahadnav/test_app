@@ -286,7 +286,7 @@ with centered_col[1]:
             stripes_df['day_of_year'] = stripes_df.index.dayofyear
             stripes_df['year'] = stripes_df.index.year
             df_grouped = stripes_df.groupby(['year', 'day_of_year'])['PM2.5'].mean().reset_index()
-            pm2_5_matrix = df_grouped.pivot(index='year', columns='day_of_year', values='PM2.5')
+            pm2_5_matrix = df_grouped.pivot(index='year', columns='day_of_year', values='PM2.5').dropna()
             
             # Define PM2.5 breakpoints and corresponding colors
             breakpoints = [0, 12, 35.4, 55.4, 150.4, 250.4, np.inf]
@@ -308,7 +308,7 @@ with centered_col[1]:
 
             # Add colorbar
             cbar = fig.colorbar(cax, ticks=breakpoints)
-            cbar.set_label("PM2.5 Concentration (µg/m³)")
+            cbar.set_label("PM2.5 Concentration (µg/m³)")   
             
             fig.patch.set_alpha(0)
             ax.set_facecolor("none")
