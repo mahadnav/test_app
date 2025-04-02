@@ -314,7 +314,7 @@ with centered_col[1]:
             cbar = fig.colorbar(cax, boundaries=breakpoints, orientation='horizontal', pad=0.01)
             cbar.set_ticks(midpoints)
             cbar.set_ticklabels(categories[:-1], fontsize=20)
-            cbar.ax.tick_params(axis='x', colors='white', labelsize=12, length=0)
+            cbar.ax.tick_params(axis='x', colors='white', labelsize=16, length=0)
             
             fig.patch.set_alpha(0)
             ax.set_facecolor("none")
