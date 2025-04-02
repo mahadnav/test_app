@@ -296,6 +296,8 @@ with centered_col[1]:
             cmap = ListedColormap(colors)
             norm = BoundaryNorm(breakpoints, cmap.N)
 
+            map_legend()
+
             fig, ax = plt.subplots(figsize=(30, pm2_5_matrix.index.nunique()*3))
             cax = ax.imshow(pm2_5_matrix, aspect='auto', cmap=cmap, norm=norm)
             
